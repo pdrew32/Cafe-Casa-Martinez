@@ -33,3 +33,7 @@ production = production[[production.columns[0], production.columns[5]]]
 
 production.drop(index=0, inplace=True)
 production.rename(columns={production.columns[0]:'year', production.columns[1]:'weight_kg'}, inplace=True)
+
+
+# load lot data
+lots = pd.read_excel('data/INVENTARIO_DE_CAFETALES.xlsx')
