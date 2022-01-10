@@ -37,3 +37,18 @@ production.rename(columns={production.columns[0]:'year', production.columns[1]:'
 
 # load lot data
 lots = pd.read_excel('data/INVENTARIO_DE_CAFETALES.xlsx')
+
+lots.rename(columns={lots.columns[0]:'lot_number', lots.columns[1]:'lot_name', lots.columns[2]:'sow_month', lots.columns[3]:'sow_year', lots.columns[4]:'cut_month', lots.columns[5]:'cut_year',  lots.columns[6]:'variety',  lots.columns[7]:'n_plants', lots.columns[8]:'planting_distance_streets_meters', lots.columns[10]:'planting_distance_grooves_meters', lots.columns[11]:'area_in_sq_meters'}, inplace=True)
+
+lots.drop(columns='Unnamed: 9', index=0, inplace=True)
+
+lots.loc[~np.isnan(lots.cut_month.astype(float)), 'cut_year']
+lots.loc[~np.isnan(lots.sow_year.astype(float)), 'sow_year']
+
+# create new dataframe with total number of producing plants per year
+tot_plants = pd.DataFrame()
+tot_plants['year'] = np.arange(2006, 2022)
+
+# if sow year is nan, add plants to 2006
+tot_plants.loc[tot_plants.year == 2006] = sum(lots.loc[np.isnan(lots.sow_year.astype(float)), 'n_plants'])
+
