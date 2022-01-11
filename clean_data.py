@@ -46,9 +46,9 @@ lots.loc[~np.isnan(lots.cut_month.astype(float)), 'cut_year']
 lots.loc[~np.isnan(lots.sow_year.astype(float)), 'sow_year']
 
 # add columns for each year, fill with 1 if producing, 0 if not.
-lots = pd.concat([pd.DataFrame(columns=np.arange(2006, 2022)), lots])
+lots = pd.concat([pd.DataFrame(columns=np.arange(2008, 2021)), lots])
 
-for i in range(len(np.arange(2006, 2022))):
+for i in range(len(np.arange(2008, 2021))):
     year = lots.columns[i]
     lots[year] = 0
 
@@ -58,8 +58,17 @@ for i in range(len(np.arange(2006, 2022))):
     
 # create new dataframe with total number of producing plants per year
 tot_plants = pd.DataFrame()
-tot_plants['year'] = np.arange(2006, 2022)
+tot_plants['year'] = np.arange(2008, 2021)
 
 # add total plants per year
-tot_plants['tot_plants'] = lots[np.arange(2006, 2022)].sum().values
+tot_plants['tot_plants'] = lots[np.arange(2008, 2021)].sum().values
 
+tot_plants['prod_per_plant_kg'] = production.weight_kg.values/tot_plants['tot_plants'].values
+
+for i in range(len(np.arange(2008, 2021))):
+    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'total_rain_cm'] = rain.loc[rain.year == np.arange(2008, 2021)[i], 'total'].sum()
+
+plt.scatter(tot_plants.total_rain_cm, tot_plants.prod_per_plant_kg)
+plt.ylabel('production per plant (kg)')
+plt.xlabel('total rain (cm)')
+plt.show()
