@@ -45,10 +45,21 @@ lots.drop(columns='Unnamed: 9', index=0, inplace=True)
 lots.loc[~np.isnan(lots.cut_month.astype(float)), 'cut_year']
 lots.loc[~np.isnan(lots.sow_year.astype(float)), 'sow_year']
 
+# add columns for each year, fill with 1 if producing, 0 if not.
+lots = pd.concat([pd.DataFrame(columns=np.arange(2006, 2022)), lots])
+
+for i in range(len(np.arange(2006, 2022))):
+    year = lots.columns[i]
+    lots[year] = 0
+
+    lots.loc[(~np.isnan((lots.cut_year).astype(float))) & ((year < lots.cut_year) | (year >= lots.cut_year+2)), year] = 1*lots.n_plants
+
+    lots.loc[(~np.isnan((lots.sow_year).astype(float))) & (lots.sow_year+3 <= year), year] = 1*lots.n_plants
+    
 # create new dataframe with total number of producing plants per year
 tot_plants = pd.DataFrame()
 tot_plants['year'] = np.arange(2006, 2022)
 
-# if sow year is nan, add plants to 2006
-tot_plants.loc[tot_plants.year == 2006] = sum(lots.loc[np.isnan(lots.sow_year.astype(float)), 'n_plants'])
+# add total plants per year
+tot_plants['tot_plants'] = lots[np.arange(2006, 2022)].sum().values
 
