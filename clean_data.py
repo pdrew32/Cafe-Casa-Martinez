@@ -89,3 +89,8 @@ print(corr.unstack().sort_values()[corr.unstack().sort_values() < 1][-15:])
 plt.ylabel('production per plant (kg)')
 plt.xlabel('total rain (cm)')
 plt.show()"""
+
+plt.scatter(tot_plants.may_rain_cm, tot_plants.prod_per_plant_kg)
+plt.ylabel('production per plant (kg)')
+plt.xlabel('total rain in May (cm)')
+plt.show()
