@@ -67,20 +67,25 @@ tot_plants['prod_per_plant_kg'] = production.weight_kg.values/tot_plants['tot_pl
 
 for i in range(len(np.arange(2008, 2021))):
     tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'total_rain_cm'] = rain.loc[rain.year == np.arange(2008, 2021)[i], 'total'].sum()
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'jan_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'ENERO'), 'total'].values
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'feb_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'FEBRERO'), 'total'].values
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'mar_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'MARZO'), 'total'].values
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'apr_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'ABRIL'), 'total'].values
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'may_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'MAYO'), 'total'].values
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'jun_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'JUNIO'), 'total'].values
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'jul_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'JULIO'), 'total'].values
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'aug_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'AGOSTO'), 'total'].values
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'sep_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'SEPTIEMBRE'), 'total'].values
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'oct_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'OCTUBRE'), 'total'].values
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'nov_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'NOVIEMBRE'), 'total'].values
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'dec_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'DICIEMBRE'), 'total'].values
+    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'jan_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'ENERO'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'feb_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'FEBRERO'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'mar_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'MARZO'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'apr_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'ABRIL'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'may_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'MAYO'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'jun_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'JUNIO'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'jul_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'JULIO'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'aug_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'AGOSTO'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'sep_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'SEPTIEMBRE'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'oct_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'OCTUBRE'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'nov_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'NOVIEMBRE'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'dec_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'DICIEMBRE'), 'total'].values.astype(float)
 
-plt.scatter(tot_plants.total_rain_cm, tot_plants.prod_per_plant_kg)
+corr = tot_plants.corr()
+
+# print 15 most highly correlated parameters that are not auto-correlations
+print(corr.unstack().sort_values()[corr.unstack().sort_values() < 1][-15:])
+
+"""plt.scatter(tot_plants.total_rain_cm, tot_plants.prod_per_plant_kg)
 plt.ylabel('production per plant (kg)')
 plt.xlabel('total rain (cm)')
-plt.show()
+plt.show()"""
