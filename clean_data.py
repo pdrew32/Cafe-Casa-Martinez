@@ -22,7 +22,7 @@ row_is_a_year_inds = rain.loc[np.isnan(rain.month.str.isnumeric().astype(float))
 for i in range(len(row_is_a_year_inds)-1):
     rain.loc[row_is_a_year_inds[i]:row_is_a_year_inds[i+1]-1, 'year'] = rain.loc[row_is_a_year_inds, 'month'].values[i]
 
-rain.loc[row_is_a_year_inds[i]:, 'year'] = rain.loc[row_is_a_year_inds, 'month'].values[i]
+rain.loc[row_is_a_year_inds[i+1]-1:, 'year'] = rain.loc[row_is_a_year_inds, 'month'].values[i+1]
 
 rain.drop(index=row_is_a_year_inds, inplace=True)
 
@@ -67,6 +67,7 @@ tot_plants['prod_per_plant_kg'] = production.weight_kg.values/tot_plants['tot_pl
 
 for i in range(len(np.arange(2008, 2021))):
     tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'total_rain_cm'] = rain.loc[rain.year == np.arange(2008, 2021)[i], 'total'].sum()
+    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'jan_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'ENERO'), 'total']
 
 plt.scatter(tot_plants.total_rain_cm, tot_plants.prod_per_plant_kg)
 plt.ylabel('production per plant (kg)')
