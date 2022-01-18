@@ -1,10 +1,35 @@
 import numpy as np
 from matplotlib import pyplot as plt
 import pandas as pd
+from scipy.optimize import curve_fit
 
 """
 clean data from excel files and save as csv
 """
+
+
+def expon(x, a, b):
+    """
+    Exponential function to estimate the fraction of production in a plant as a function of time since planting or renewing.
+    We know the decay in fractional production for the first 3 years after the peak of production for a plant, but the long term decay is not known.
+    We assume that it will follow exponential decay until data is available to constrain the curve beyond 3 years.
+
+    Parameters:
+    -----------
+    x : array of floats or integers
+        represents the year, starting with 0
+    a : float
+        the amplitude of the exponential function
+    b : float
+        the normalization of the exponential function
+    
+    Returns:
+    --------
+    y : array of floats
+        the fraction of the total production in a plant
+    """
+    return a*np.exp(-x) + b
+
 
 # load rain data
 rain = pd.read_excel('data/CONTROL_DE_LLUVIAS-1.xlsx', sheet_name=0)
@@ -40,47 +65,110 @@ production.rename(columns={production.columns[0]:'year', production.columns[1]:'
 # load lot data
 lots = pd.read_excel('data/INVENTARIO_DE_CAFETALES.xlsx')
 
+# rename columns
 lots.rename(columns={lots.columns[0]:'lot_number', lots.columns[1]:'lot_name', lots.columns[2]:'sow_month', lots.columns[3]:'sow_year', lots.columns[4]:'cut_month', lots.columns[5]:'cut_year',  lots.columns[6]:'variety',  lots.columns[7]:'n_plants', lots.columns[8]:'planting_distance_streets_meters', lots.columns[10]:'planting_distance_grooves_meters', lots.columns[11]:'area_in_sq_meters'}, inplace=True)
-
 lots.drop(columns='Unnamed: 9', index=0, inplace=True)
 
-lots.loc[~np.isnan(lots.cut_month.astype(float)), 'cut_year']
-lots.loc[~np.isnan(lots.sow_year.astype(float)), 'sow_year']
-
+year_arr = np.arange(2008, 2021)
 # add columns for each year, fill with 1 if producing, 0 if not.
-lots = pd.concat([pd.DataFrame(columns=np.arange(2008, 2021)), lots])
+lots = pd.concat([pd.DataFrame(columns=year_arr), lots])
 
-for i in range(len(np.arange(2008, 2021))):
-    year = lots.columns[i]
-    lots[year] = 0
+# years, starting in 0
+x = np.array([0.0, 1.0, 2.0])
+# the observed fractional decay of production after the year of peak production
+y = np.array([1, 0.7, 0.55])
 
-    lots.loc[(~np.isnan((lots.cut_year).astype(float))) & ((year < lots.cut_year) | (year >= lots.cut_year+2)), year] = 1*lots.n_plants
+# fit the exponential function to estimate the fractional production for years beyond that which data constrains.
+f = curve_fit(expon, x, y)
 
-    lots.loc[(~np.isnan((lots.sow_year).astype(float))) & (lots.sow_year+3 <= year), year] = 1*lots.n_plants
+# production fraction vs time for 16 years after the peak. This will be used later to estimate the production for fields that have gone too long without being renewed.
+production_vs_time = expon(np.linspace(0, 15, 16), f[0][0], f[0][1])
+
+# for all lots in dataframe
+for i in lots.index:
+    prod_arr = np.zeros(len(year_arr))
+
+    # year of cut, 0% production
+    # in 1st year after cut, 25% production
+    prod_arr[year_arr == lots.loc[i, 'cut_year']+1] = 0.25
+    # in 2nd year after cut, 80% production
+    prod_arr[year_arr == lots.loc[i, 'cut_year']+2] = 0.8
+    # in third year after cut, returned to 100% production
+    prod_arr[year_arr == lots.loc[i, 'cut_year']+3] = 1
+    # 4th year after cut, down to 70%
+    prod_arr[year_arr == lots.loc[i, 'cut_year']+4] = production_vs_time[1]
+    # 5th year after cut, down to 50-60%
+    prod_arr[year_arr == lots.loc[i, 'cut_year']+5] = production_vs_time[2]
+    # continue to assume an exponential loss each year, as calculated based on three points (, 1, 0.7, 0.55)
+    prod_arr[year_arr == lots.loc[i, 'cut_year']+6] = production_vs_time[3]
+    prod_arr[year_arr == lots.loc[i, 'cut_year']+7] = production_vs_time[4]
+    prod_arr[year_arr == lots.loc[i, 'cut_year']+8] = production_vs_time[5]
+
+    # in the years before zoca it is unknown how old the plants are, other than that they are too old. 
+    # Filling with the average of all plants in all fields before any cut/zoca or new field planting.
+    # Percentage is a fraction of the expected 500g dried coffee per plant.
+    prod_arr[year_arr == lots.loc[i, 'cut_year']-1] = production_vs_time[-1]
+    prod_arr[year_arr == lots.loc[i, 'cut_year']-2] = production_vs_time[-1]
+    prod_arr[year_arr == lots.loc[i, 'cut_year']-3] = production_vs_time[-1]
+    prod_arr[year_arr == lots.loc[i, 'cut_year']-4] = production_vs_time[-1]
+    prod_arr[year_arr == lots.loc[i, 'cut_year']-5] = production_vs_time[-1]
+    prod_arr[year_arr == lots.loc[i, 'cut_year']-6] = production_vs_time[-1]
+    prod_arr[year_arr == lots.loc[i, 'cut_year']-7] = production_vs_time[-1]
+    prod_arr[year_arr == lots.loc[i, 'cut_year']-8] = production_vs_time[-1]
+    prod_arr[year_arr == lots.loc[i, 'cut_year']-9] = production_vs_time[-1]
+    prod_arr[year_arr == lots.loc[i, 'cut_year']-10] = production_vs_time[-1]
+    prod_arr[year_arr == lots.loc[i, 'cut_year']-11] = production_vs_time[-1]
+    prod_arr[year_arr == lots.loc[i, 'cut_year']-12] = production_vs_time[-1]
+    prod_arr[year_arr == lots.loc[i, 'cut_year']-13] = production_vs_time[-1]
+    prod_arr[year_arr == lots.loc[i, 'cut_year']-14] = production_vs_time[-1]
+    prod_arr[year_arr == lots.loc[i, 'cut_year']-15] = production_vs_time[-1]
+
+    # year of sowing, 0% production
+    # in 1st year after sowing, insignificant production (calling it 0%)
+    # in 2nd year after sowing, 50% production
+    prod_arr[year_arr == lots.loc[i, 'sow_year']+2] = 0.5
+    # in 3rd year after sowing, at 100% production
+    prod_arr[year_arr == lots.loc[i, 'sow_year']+3] = 1
+    # in 4th year after sowing, at 70% production
+    prod_arr[year_arr == lots.loc[i, 'sow_year']+4] = 0.7
+    # in 5th year after sowing, at 70% production
+    prod_arr[year_arr == lots.loc[i, 'sow_year']+5] = 0.55
+    prod_arr[year_arr == lots.loc[i, 'sow_year']+6] = production_vs_time[3]
+    prod_arr[year_arr == lots.loc[i, 'sow_year']+7] = production_vs_time[4]
+    prod_arr[year_arr == lots.loc[i, 'sow_year']+8] = production_vs_time[5]
+    prod_arr[year_arr == lots.loc[i, 'sow_year']+9] = production_vs_time[6]
+    prod_arr[year_arr == lots.loc[i, 'sow_year']+10] = production_vs_time[7]
+    prod_arr[year_arr == lots.loc[i, 'sow_year']+11] = production_vs_time[8]
     
+    # multiply fraction of production by number of plants
+    prod_arr = prod_arr * lots.loc[i, 'n_plants']
+
+    # fill each year in dataframe with the number of plants producing in each lot
+    lots.loc[i, [lots.columns[0], lots.columns[1], lots.columns[2], lots.columns[3], lots.columns[4], lots.columns[5], lots.columns[6], lots.columns[7], lots.columns[8], lots.columns[9], lots.columns[10], lots.columns[11], lots.columns[12]]] = prod_arr
+
 # create new dataframe with total number of producing plants per year
 tot_plants = pd.DataFrame()
-tot_plants['year'] = np.arange(2008, 2021)
+tot_plants['year'] = year_arr
 
 # add total plants per year
-tot_plants['tot_plants'] = lots[np.arange(2008, 2021)].sum().values
+tot_plants['tot_plants'] = lots[year_arr].sum().values
 
 tot_plants['prod_per_plant_kg'] = production.weight_kg.values/tot_plants['tot_plants'].values
 
-for i in range(len(np.arange(2008, 2021))):
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'total_rain_cm'] = rain.loc[rain.year == np.arange(2008, 2021)[i], 'total'].sum()
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'jan_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'ENERO'), 'total'].values.astype(float)
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'feb_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'FEBRERO'), 'total'].values.astype(float)
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'mar_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'MARZO'), 'total'].values.astype(float)
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'apr_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'ABRIL'), 'total'].values.astype(float)
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'may_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'MAYO'), 'total'].values.astype(float)
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'jun_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'JUNIO'), 'total'].values.astype(float)
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'jul_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'JULIO'), 'total'].values.astype(float)
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'aug_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'AGOSTO'), 'total'].values.astype(float)
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'sep_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'SEPTIEMBRE'), 'total'].values.astype(float)
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'oct_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'OCTUBRE'), 'total'].values.astype(float)
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'nov_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'NOVIEMBRE'), 'total'].values.astype(float)
-    tot_plants.loc[tot_plants.year == np.arange(2008, 2021)[i], 'dec_rain_cm'] = rain.loc[(rain.year == np.arange(2008, 2021)[i]) & (rain.month == 'DICIEMBRE'), 'total'].values.astype(float)
+for i in range(len(year_arr)):
+    tot_plants.loc[tot_plants.year == year_arr[i], 'total_rain_cm'] = rain.loc[rain.year == year_arr[i], 'total'].sum()
+    tot_plants.loc[tot_plants.year == year_arr[i], 'jan_rain_cm'] = rain.loc[(rain.year == year_arr[i]) & (rain.month == 'ENERO'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == year_arr[i], 'feb_rain_cm'] = rain.loc[(rain.year == year_arr[i]) & (rain.month == 'FEBRERO'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == year_arr[i], 'mar_rain_cm'] = rain.loc[(rain.year == year_arr[i]) & (rain.month == 'MARZO'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == year_arr[i], 'apr_rain_cm'] = rain.loc[(rain.year == year_arr[i]) & (rain.month == 'ABRIL'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == year_arr[i], 'may_rain_cm'] = rain.loc[(rain.year == year_arr[i]) & (rain.month == 'MAYO'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == year_arr[i], 'jun_rain_cm'] = rain.loc[(rain.year == year_arr[i]) & (rain.month == 'JUNIO'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == year_arr[i], 'jul_rain_cm'] = rain.loc[(rain.year == year_arr[i]) & (rain.month == 'JULIO'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == year_arr[i], 'aug_rain_cm'] = rain.loc[(rain.year == year_arr[i]) & (rain.month == 'AGOSTO'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == year_arr[i], 'sep_rain_cm'] = rain.loc[(rain.year == year_arr[i]) & (rain.month == 'SEPTIEMBRE'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == year_arr[i], 'oct_rain_cm'] = rain.loc[(rain.year == year_arr[i]) & (rain.month == 'OCTUBRE'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == year_arr[i], 'nov_rain_cm'] = rain.loc[(rain.year == year_arr[i]) & (rain.month == 'NOVIEMBRE'), 'total'].values.astype(float)
+    tot_plants.loc[tot_plants.year == year_arr[i], 'dec_rain_cm'] = rain.loc[(rain.year == year_arr[i]) & (rain.month == 'DICIEMBRE'), 'total'].values.astype(float)
 
 
 # plot # of fresh fields (zoca or plant) vs year. need to control for the fact that they're new
@@ -88,38 +176,8 @@ tot_plants['fresh_fields'] = 0
 year_fresh = np.sort(np.append(lots.sow_year.values+3, lots.cut_year.values+2).astype(float))
 year_fresh = year_fresh[~np.isnan(year_fresh)]
 
-"""fresh_counter = 0
-for i in range(len(tot_plants)):
-    if tot_plants.loc[i, 'year'] == year_fresh[0]:
-        tot_plants.loc[i, 'fresh_fields'] = sum(year_fresh == year_fresh[fresh_counter])
-        fresh_counter += 1
-    if tot_plants.loc[i, 'year'] > year_fresh[0]:
-        tot_plants.loc[i, 'fresh_fields'] = fresh_counter + sum(year_fresh == year_fresh[fresh_counter]) + tot_plants.loc[i-1, 'fresh_fields']
-        fresh_counter += 1"""
-
 for i in range(len(year_fresh)):
     tot_plants.loc[tot_plants.year == year_fresh[i], 'fresh_fields'] = sum(year_fresh == year_fresh[i])
     
 for i in range(1, len(tot_plants)):
     tot_plants.loc[i, 'fresh_fields'] = tot_plants.loc[i, 'fresh_fields'] + tot_plants.loc[i-1, 'fresh_fields']
-
-
-corr = tot_plants.corr()
-
-# print 15 most highly correlated parameters that are not auto-correlations
-print(corr.unstack().sort_values()[corr.unstack().sort_values() < 1][-15:])
-
-plt.scatter(tot_plants.total_rain_cm, tot_plants.prod_per_plant_kg)
-plt.ylabel('production per plant (kg)')
-plt.xlabel('total rain (cm)')
-plt.show()
-
-plt.scatter(tot_plants.may_rain_cm, tot_plants.prod_per_plant_kg, c=tot_plants.year)
-plt.ylabel('production per plant (kg)')
-plt.xlabel('total rain in May (cm)')
-plt.show()
-
-plt.scatter(tot_plants.year, tot_plants.prod_per_plant_kg)
-plt.ylabel('production per plant (kg)')
-plt.xlabel('year')
-plt.show()
