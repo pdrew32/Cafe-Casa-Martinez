@@ -31,6 +31,13 @@ def expon(x, a, b):
     return a*np.exp(-x) + b
 
 
+write_files = True
+
+save_path_rain = 'data/rain.csv'
+save_path_production = 'data/production.csv'
+save_path_lots = 'data/lots.csv'
+save_path_tot_plants = 'data/tot_plants.csv'
+
 # load rain data
 rain = pd.read_excel('data/CONTROL_DE_LLUVIAS-1.xlsx', sheet_name=0)
 
@@ -181,3 +188,9 @@ for i in range(len(year_fresh)):
     
 for i in range(1, len(tot_plants)):
     tot_plants.loc[i, 'fresh_fields'] = tot_plants.loc[i, 'fresh_fields'] + tot_plants.loc[i-1, 'fresh_fields']
+
+if write_files is True:
+    rain.to_csv('data/rain.csv')
+    production.to_csv('data/production.csv')
+    lots.to_csv('data/lots.csv')
+    tot_plants.to_csv('data/tot_plants.csv')
