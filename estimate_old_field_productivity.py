@@ -12,7 +12,7 @@ This curve is known for the first three years and needs to be estimated from the
 
 def quadratic(x, a, b, c):
     """
-    quadratic function to estimate the fraction of production in a plant as a function of time since planting or renewing.
+    quadratic function to estimate the fractional plant productivity as a function of year since the peak.
     
     Returns:
     --------
@@ -22,9 +22,16 @@ def quadratic(x, a, b, c):
     return a + b*x**c
 
 
+show_plots = True
+
 # years, starting in 0
 x = np.array([0.0, 1.0, 2.0])
 
 # the observed fractional decay of production after the year of peak production
 y = np.array([1, 0.7, 0.55])
 
+if show_plots is True:
+    plt.scatter(x, y)
+    plt.xlabel('Year Since Peak')
+    plt.ylabel('Fractional Plant Productivity')
+    plt.show()
