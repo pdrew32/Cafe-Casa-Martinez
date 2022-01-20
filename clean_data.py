@@ -2,33 +2,23 @@ import numpy as np
 from matplotlib import pyplot as plt
 import pandas as pd
 from scipy.optimize import curve_fit
+from datetime import date
 
 """
 clean data from excel files and save as csv
 """
 
 
-def expon(x, a, b):
+def quadratic(x, a, b, c):
     """
-    Exponential function to estimate the fraction of production in a plant as a function of time since planting or renewing.
-    We know the decay in fractional production for the first 3 years after the peak of production for a plant, but the long term decay is not known.
-    We assume that it will follow exponential decay until data is available to constrain the curve beyond 3 years.
-
-    Parameters:
-    -----------
-    x : array of floats or integers
-        represents the year, starting with 0
-    a : float
-        the amplitude of the exponential function
-    b : float
-        the normalization of the exponential function
+    quadratic function to estimate the fraction of production in a plant as a function of time since planting or renewing.
     
     Returns:
     --------
     y : array of floats
         the fraction of the total production in a plant
     """
-    return a*np.exp(-x) + b
+    return a + b*x**c
 
 
 write_files = True
@@ -76,20 +66,49 @@ lots = pd.read_excel('data/INVENTARIO_DE_CAFETALES.xlsx')
 lots.rename(columns={lots.columns[0]:'lot_number', lots.columns[1]:'lot_name', lots.columns[2]:'sow_month', lots.columns[3]:'sow_year', lots.columns[4]:'cut_month', lots.columns[5]:'cut_year',  lots.columns[6]:'variety',  lots.columns[7]:'n_plants', lots.columns[8]:'planting_distance_streets_meters', lots.columns[10]:'planting_distance_grooves_meters', lots.columns[11]:'area_in_sq_meters'}, inplace=True)
 lots.drop(columns='Unnamed: 9', index=0, inplace=True)
 
-year_arr = np.arange(2008, 2021)
+# array of years for which we have production data
+year_arr = np.arange(production.year.values[0], production.year.values[-1]+1)
 # add columns for each year, fill with 1 if producing, 0 if not.
-lots = pd.concat([pd.DataFrame(columns=year_arr), lots])
+lots = pd.concat([pd.DataFrame(columns=year_arr.astype(str)), lots])
+# add columns for each year to be filled with theoretical 100% production
+lots = pd.concat([pd.DataFrame(columns=np.core.defchararray.add(year_arr.astype(str), '_100_prod')), lots])
+
+# for all lots in dataframe
+for i in lots.index:
+    prod_arr = np.zeros(len(year_arr))
+
+    # if there was a zoca, year of cut has 0 production, all other years produce
+    if ~np.isnan(lots.loc[i, 'cut_year']):
+        productive_years_post_zoca = np.arange(lots.loc[i, 'cut_year']+1, date.today().year)
+        productive_years_pre_zoca = np.arange(year_arr[0], lots.loc[i, 'cut_year'])
+
+        prod_arr[np.isin(year_arr, productive_years_post_zoca)] = 1
+        prod_arr[np.isin(year_arr, productive_years_pre_zoca)] = 1
+
+    # if there was a sowing, years 0 and 1 have 0 production, all years after produce
+    if ~np.isnan(lots.loc[i, 'sow_year']):
+        productive_years_post_sow = np.arange(lots.loc[i, 'sow_year']+2, date.today().year)
+
+        prod_arr[np.isin(year_arr, productive_years_post_sow)] = 1
+    
+    # multiply by number of plants
+    prod_arr = prod_arr * lots.loc[i, 'n_plants']
+
+    # fill each year in dataframe with the number of plants producing in each lot
+    lots.iloc[i, np.where(lots.columns == str(year_arr[0]))[0][0]:np.where(lots.columns == str(year_arr[-1]))[0][0]+1] = prod_arr
 
 # years, starting in 0
-x = np.array([0.0, 1.0, 2.0])
+x = np.array([0.0, 1.0, 2.0, 10])
 # the observed fractional decay of production after the year of peak production
-y = np.array([1, 0.7, 0.55])
+y = np.array([1, 0.7, 0.55, 0.3240145672664953])
 
 # fit the exponential function to estimate the fractional production for years beyond that which data constrains.
 f = curve_fit(expon, x, y)
+g = curve_fit(quadratic, x, y)
 
 # production fraction vs time for 16 years after the peak. This will be used later to estimate the production for fields that have gone too long without being renewed.
-production_vs_time = expon(np.linspace(0, 15, 16), f[0][0], f[0][1])
+# production_vs_time = expon(np.linspace(0, 15, 16), f[0][0], f[0][1])
+production_vs_time = quadratic(np.linspace(0, 15, 16), g[0][0], g[0][1], g[0][2])
 
 # for all lots in dataframe
 for i in lots.index:
@@ -188,6 +207,10 @@ for i in range(len(year_fresh)):
     
 for i in range(1, len(tot_plants)):
     tot_plants.loc[i, 'fresh_fields'] = tot_plants.loc[i, 'fresh_fields'] + tot_plants.loc[i-1, 'fresh_fields']
+
+# n plants before any plants are renewed or newly planted.
+avg_starting_plants = lots.loc[lots[lots.columns[0]] > 0, 'n_plants'].sum()
+average_starting_fraction = np.median(production.loc[1:4, 'weight_kg'] / avg_starting_plants) / 0.5
 
 if write_files is True:
     rain.to_csv('data/rain.csv')
