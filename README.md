@@ -10,3 +10,6 @@ Cafe Casa Martinez has daily rainfall totals reaching back to October 2006, year
 
 # Key Goals
 The first set of key goals are to determine which quantities correlate with yearly production and what practices could increase or maximize production. Secondary goals include investigating what requirements there are to make a profit in a given year.
+
+# Results
+The first result is that rainfall in the month of May is most highly correlated with production. This result is arrived at after controlling for the decreased production of lots that are not in their maximum year of production. The correlation has a strength of .
