@@ -97,3 +97,34 @@ ax2.set_ylabel('Actual Production (kg)')
 ax.legend(fontsize='x-small')
 ax2.legend(fontsize='x-small')
 plt.show()
+
+
+# save a dataframe with the recommended lot zoca schedule each year
+zoca_schedule = pd.DataFrame(index=np.arange(2022, 2051), columns=np.arange(0, 6))
+
+d = {}
+for i in lots.index:
+    if ~np.isnan(lots.loc[i, 'cut_year']):
+        d[str(lots.index[i])] = np.arange(lots.loc[i, 'cut_year'], 2051, 6)
+    if ~np.isnan(lots.loc[i, 'sow_year']):
+        d[str(lots.index[i])] = np.arange(lots.loc[i, 'sow_year']+7, 2051, 6)
+
+
+dF = pd.DataFrame(index=lots.index, columns=np.arange(0, 10))
+j=0
+for i in lots.index:
+    if np.isin(i, lots.index[(lots.cut_year+6 < 2023) | (lots.sow_year+7 < 2023)]):
+        dF.loc[i] = np.arange(recommended_zoca_year_list[j], recommended_zoca_year_list[j]+60, 6)
+        j += 1
+    else:
+        if ~np.isnan(lots.loc[i, 'cut_year']):
+            dF.loc[i] = np.arange(lots.loc[i, 'cut_year'], lots.loc[i, 'cut_year']+60, 6)
+        if ~np.isnan(lots.loc[i, 'sow_year']):
+            dF.loc[i] = np.arange(lots.loc[i, 'sow_year']+7, lots.loc[i, 'sow_year']+67, 6)
+dF['lot_name'] = lots.lot_name
+dF['n_plants'] = lots.n_plants
+
+# print this to check that the correct years were assigned for our custom 4
+# dF.loc[lots.index[(lots.cut_year+6 < 2023) | (lots.sow_year+7 < 2023)]]
+
+print(dF.loc[np.isin(dF, 2022), ['lot_name', 'n_plants']])
