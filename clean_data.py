@@ -115,6 +115,9 @@ for i in range(len(year_arr)):
     tot_plants.loc[tot_plants.year == year_arr[i], 'nov_rain_cm'] = rain.loc[(rain.year == year_arr[i]) & (rain.month == 'NOVIEMBRE'), 'total'].values.astype(float)
     tot_plants.loc[tot_plants.year == year_arr[i], 'dec_rain_cm'] = rain.loc[(rain.year == year_arr[i]) & (rain.month == 'DICIEMBRE'), 'total'].values.astype(float)
 
+# print 15 most highly correlated parameters that are not auto-correlations
+corr = tot_plants.corr()
+print(corr.unstack().sort_values()[corr.unstack().sort_values() < 1][-20:])
 
 if write_files is True:
     rain.to_csv('data/rain.csv')
