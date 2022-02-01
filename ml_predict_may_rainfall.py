@@ -1,4 +1,4 @@
-from sklearn import linear_model
+from sklearn import linear_model, svm
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
@@ -38,4 +38,5 @@ april_rain_y_pred = regr.predict(april_rain_test_x)
 
 plt.scatter(april_rain_test.year, april_rain_test_y, label='test')
 plt.scatter(april_rain_test.year, april_rain_y_pred, label='prediction')
+plt.legend(fontsize='x-small')
 plt.show()
