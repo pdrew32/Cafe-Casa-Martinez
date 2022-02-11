@@ -15,3 +15,19 @@ The strongest correlation in the dataset is between total production and year wi
 Rainfall in the month of May is most highly correlated with production. This result is arrived at after controlling for the decreased production of lots that are not in their maximum year of production. The correlation has a strength of .
 
 The maximum production of a lot depends on the soil, rainfall, climate, and available sunlight. It is not known in general without empirical measurement from the plants in a given lot. Tulipan farm has 11 lots in which coffee is grown on, each with a different number of plants. The available production data is not split out into production per lot. There is only a record of the total production in a year for the entire farm, so I needed to find a way to estimate the theoretical maximum production from the data, while trying to control for different levels of production due to staggered sowing and zoca schedules. This is complicated by the fact that rainfall totals are different every year and the number of plants of a given age vary, with production totals tied to both of these.
+
+# Steps
+First I cleaned the data by translating the columns from Spanish to English and removed the excel formatting of each file, as each of the Cafe Casa Martinez works with each file in excel. I saved the clean pandas dataframes for use in other scripts. 
+
+Next I performed an exploratory data analysis. First I calculated Pearson correlation coefficients between all parameters and found the following:
+
+| Parameter 1      | Parameter 2 | Pearson Correlation Coefficient |
+| ---------------- | ----------- | ------------------------------- |
+|  Total Production  |  Year  |  0.88 |
+|  Production Per Plant  |  Year  |  0.79  |
+|  Total Number of Plants  |  Year  |  0.75  |
+|  Total Number of Plants  |  Total Production  |  0.68  |
+|  Production Per Plant  |  Total May Rainfall  |  0.66  |
+|  Total Production  |  Total May Rainfall  |  0.64  |
+
+I am not including self-correlations such as the correlation between total production per plant and total production, nor am I including the correlations between rainfall in one month and rainfall in another as these correlations are not interesting for our purposes.
