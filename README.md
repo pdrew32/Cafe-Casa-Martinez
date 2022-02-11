@@ -19,7 +19,7 @@ The maximum production of a lot depends on the soil, rainfall, climate, and avai
 # Steps
 First I cleaned the data by translating the columns from Spanish to English and removing the excel formatting of each file, as Cafe Casa Martinez works with each file in excel. I saved the clean pandas dataframes for use in other scripts. 
 
-Next I performed an exploratory data analysis. First I calculated Pearson correlation coefficients for all parameters. This coefficient is a measure of the linear correlation between parameters with values closer to 1 being highly correlated and values closer to 0 being uncorrelated. I found the following:
+Next I performed an exploratory data analysis. First I calculated Pearson correlation coefficients for all parameters. This coefficient is a measure of the linear correlation between parameters with values closer to 1 (or -1) being highly correlated and values closer to 0 being uncorrelated. I found the following:
 
 | Parameter 1      | Parameter 2 | Pearson Correlation Coefficient |
 | ---------------- | ----------- | ------------------------------- |
@@ -30,4 +30,12 @@ Next I performed an exploratory data analysis. First I calculated Pearson correl
 |  Production Per Plant  |  Total May Rainfall  |  0.66  |
 |  Total Production  |  Total May Rainfall  |  0.64  |
 
-Here I do not include self-correlations such as the correlation between total production per plant and total production nor am I including the correlations between rainfall totals in different months because these correlations are not interesting for our purposes. 
+Here I do not include self-correlations such as the correlation between total production per plant and total production nor am I including the correlations between rainfall totals in different months because these correlations are not interesting for our purposes. The total production and production per plant are highly correlated with year because Cafe Casa Martinez has been renewing their fields and have not yet reached the stable equilibrium that will be achieved after all fields are renewed on schedule. In the coming years this correlation will drop away because they will be on the optimal renewal schedule. This is the first key takeaway. It is more important to stick with the renewal schedule than anything else, even to have adequate rainfall.
+
+Below are some other parameter correlations that may be interesting to keep in mind:
+
+| Parameter 1      | Parameter 2 | Pearson Correlation Coefficient |
+| ---------------- | ----------- | ------------------------------- |
+|  Total Yearly Rainfall  |  Total Plants  |  -0.52 |
+
+While we only have a 15 year baseline of rainfall records on the farm 
