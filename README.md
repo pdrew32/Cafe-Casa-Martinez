@@ -37,5 +37,6 @@ Below are some other parameter correlations that may be interesting to keep in m
 | Parameter 1      | Parameter 2 | Pearson Correlation Coefficient |
 | ---------------- | ----------- | ------------------------------- |
 |  Total Yearly Rainfall  |  Total Plants  |  -0.52 |
+|  Total Yearly Rainfall  |  Year  |  -0.15  |
 
-While we only have a 15 year baseline of rainfall records on the farm 
+While we only have a 15 year baseline of rainfall records on the farm it might be worrisome that the total yearly rainfall is anticorrelated with the total number of plants, considering the total number of plants positively correlate with year. At first glance that might suggest that the yearly rainfall is decreasing, but when we look at the correlation between total yearly rainfall and year we find that they are uncorrelated. The anticorrelation between yearly rainfall and total plants is useful to know about however because it implies that, by chance, as the number of plants has increased the total yearly rainfall has decreased, which may have caused a decrease in production as compared to what would have been the case if the rainfall was unchanging year after year. It suggests that in the future the production may increase slightly as it returns to baseline (or rather becomes no longer correlated, as we would expect).
