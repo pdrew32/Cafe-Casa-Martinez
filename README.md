@@ -17,9 +17,9 @@ Rainfall in the month of May is most highly correlated with production. This res
 The maximum production of a lot depends on the soil, rainfall, climate, and available sunlight. It is not known in general without empirical measurement from the plants in a given lot. Tulipan farm has 11 lots in which coffee is grown on, each with a different number of plants. The available production data is not split out into production per lot. There is only a record of the total production in a year for the entire farm, so I needed to find a way to estimate the theoretical maximum production from the data, while trying to control for different levels of production due to staggered sowing and zoca schedules. This is complicated by the fact that rainfall totals are different every year and the number of plants of a given age vary, with production totals tied to both of these.
 
 # Steps
-First I cleaned the data by translating the columns from Spanish to English and removed the excel formatting of each file, as each of the Cafe Casa Martinez works with each file in excel. I saved the clean pandas dataframes for use in other scripts. 
+First I cleaned the data by translating the columns from Spanish to English and removing the excel formatting of each file, as Cafe Casa Martinez works with each file in excel. I saved the clean pandas dataframes for use in other scripts. 
 
-Next I performed an exploratory data analysis. First I calculated Pearson correlation coefficients between all parameters and found the following:
+Next I performed an exploratory data analysis. First I calculated Pearson correlation coefficients for all parameters. This coefficient is a measure of the linear correlation between parameters with values closer to 1 being highly correlated and values closer to 0 being uncorrelated. I found the following:
 
 | Parameter 1      | Parameter 2 | Pearson Correlation Coefficient |
 | ---------------- | ----------- | ------------------------------- |
@@ -30,4 +30,4 @@ Next I performed an exploratory data analysis. First I calculated Pearson correl
 |  Production Per Plant  |  Total May Rainfall  |  0.66  |
 |  Total Production  |  Total May Rainfall  |  0.64  |
 
-I am not including self-correlations such as the correlation between total production per plant and total production, nor am I including the correlations between rainfall in one month and rainfall in another as these correlations are not interesting for our purposes.
+Here I do not include self-correlations such as the correlation between total production per plant and total production nor am I including the correlations between rainfall totals in different months because these correlations are not interesting for our purposes. 
