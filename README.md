@@ -3,7 +3,7 @@
 
 These coffee plants produce fruit at a fraction of their maximum productivity which depends on the number of years since the tree has been planted. No fruit is produced in the year of sowing or the following year. In the year after that the plant will produce fruit at 50% of its maximum production. The third year sees maximum fruit production and each year after that sees decreasing production. For this reason, in the 6th year after sowing the farmers perform a process called renewal, or zoca, where the plant is cut near its base. It then regrows from the stump and the plant returns to maximum production after two more years. Plants may be renewed up to 5 times. The following figure shows the production curve as a function of year.
 
-![alt text]( https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/production_fraction_vs_year.pdf?ray=true)
+![plot](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/production_fraction_vs_year.png)
 
 It is best practices to stagger the renewal or sowing of plants in different lots so that some of the farm is always producing. Plant renewal, or zoca, is the process of cutting the plant near the base and leaving the roots to regrow the plant.
 
