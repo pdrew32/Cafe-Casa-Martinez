@@ -1,11 +1,11 @@
 # Cafe Casa Martinez
 [Cafe Casa Martinez](https://www.cafecasamartinez.com/) is a small, organic coffee company with a farm called Tulipan in the Santander department of Colombia. They grow three varieties of coffee, Castillo, Tabi, and Cenicafe 1. These varieties grow in the shade and only fruit once per year. The plants typically flower between February and April and produce fully ripened fruits between October and December, from which the coffee beans are extracted.
 
-These coffee plants produce fruit at a fraction of their maximum productivity which depends on the number of years since the tree has been planted. No fruit is produced in the year of sowing or the following year. In the year after that the plant will produce fruit at 50% of its maximum production. The third year sees maximum fruit production and each year after that sees decreasing production. For this reason, in the 6th year after sowing the farmers perform a process called renewal, or zoca, where the plant is cut near its base. It then regrows from the stump and the plant returns to maximum production after two more years. Plants may be renewed up to 5 times. The following figure shows the production curve as a function of year.
+These coffee plants produce fruit at a fraction of their maximum productivity that depends on the number of years since the tree has been planted. No fruit is produced in the year of sowing or the following year. In the year after that the plant will produce fruit at 50% of its maximum. The third year sees maximum fruit production and each year after that sees decreasing production. For this reason, in the 6th year after sowing the farmers perform a process called renewal, or zoca, where the plant is cut near its base. It then regrows from the stump and the plant returns to maximum production after two more years. Plants may be renewed up to 5 times. The following figure shows the production curve as a function of year covering the sowing cycle and three zoca cycles.
 
 <img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/production_fraction_vs_year.png" width="500">
 
-It is best practices to stagger the renewal or sowing of plants in different lots so that some of the farm is always producing. Plant renewal, or zoca, is the process of cutting the plant near the base and leaving the roots to regrow the plant.
+It is best practice to stagger the renewal or sowing of plants across different lots so that a high fraction of the farm is always producing.
 
 # Available Data
 Cafe Casa Martinez has daily rainfall records reaching back to October 2006, yearly coffee production totals since 2008, and information about the month and day of sowing, renewal, and number of plants in each of the 11 lots. 
