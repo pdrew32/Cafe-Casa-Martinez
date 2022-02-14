@@ -25,23 +25,15 @@ First, I cleaned the data by translating the columns from Spanish to English and
 
 Next, I performed an exploratory data analysis. First, I calculated Pearson correlation coefficients for all parameters. This coefficient is a measure of the linear correlation between parameters with values closer to 1 (or -1) being highly correlated and values closer to 0 being uncorrelated. I found the following:
 
-| Parameter 1      | Parameter 2 | Pearson Correlation Coefficient |
-| ---------------- | ----------- | ------------------------------- |
-|  Total Production  |  Year  |  0.88 |
-|  Production Per Plant  |  Year  |  0.79  |
-|  Total Number of Plants  |  Year  |  0.75  |
-|  Total Number of Plants  |  Total Production  |  0.68  |
-|  Production Per Plant  |  Total May Rainfall  |  0.66  |
-|  Total Production  |  Total May Rainfall  |  0.64  |
+| Parameter 1      | Parameter 2 | Pearson Correlation Coefficient | P-value | Statistically Significant? |
+| ---------------- | ----------- | ------------------------------- | ------ | --- |
+|  Total Production  |  Year  |  0.88 |  8.8e-5 |  yes  |
+|  Production Per Plant  |  Year  |  0.79  |  1.3e-5 |  yes  |
+|  Total Number of Plants  |  Year  |  0.75  |  3.1e-3 |  yes  |
+|  Total Number of Plants  |  Total Production  |  0.68  |  1.1e-2 |  yes  |
+|  Production Per Plant  |  Total May Rainfall  |  0.66  |  1.4e-2 |  yes  |
+|  Total Production  |  Total May Rainfall  |  0.64  |  1.8e-2 |  yes  |
 
 Here I do not include self-correlations such as the correlation between total production per plant and total production nor am I including the correlations between rainfall totals in different months because these correlations are not interesting for our purposes. I manually reviewed all the other correlations to make sure there was nothing else interesting to look at.
 The total production and production per plant are highly correlated with year because Cafe Casa Martinez has been renewing their fields and have not yet reached the stable equilibrium that will be achieved after all fields are renewed on schedule. The total number of plants producing each year is also correlated with year, which further contributes to the total production. In the coming years this correlation will drop away because they will be on the optimal renewal schedule. This is the first key takeaway. It is more important to stick with the renewal schedule than anything else, even to have adequate rainfall.
 
-Below are some other parameter correlations that may be interesting to keep in mind:
-
-| Parameter 1      | Parameter 2 | Pearson Correlation Coefficient |
-| ---------------- | ----------- | ------------------------------- |
-|  Total Yearly Rainfall  |  Total Plants  |  -0.52 |
-|  Total Yearly Rainfall  |  Year  |  -0.15  |
-
-While we only have a 15-year baseline of rainfall records on the farm and this may not be long enough to see long term trends in rainfall totals, it might be worrisome that the total yearly rainfall is anticorrelated with the total number of plants, considering the total number of plants positively correlate with year. At first glance that might suggest that the yearly rainfall is decreasing, but when we look at the correlation between total yearly rainfall and year, we find that they are uncorrelated. The anticorrelation between yearly rainfall and total plants is useful to know about however because it implies that, by chance, as the number of plants has increased the total yearly rainfall has decreased, which may have caused a decrease in production as compared to what would have been the case if the rainfall was unchanging year after year. It suggests that in the future the production may increase slightly as it returns to baseline (or rather becomes no longer correlated, as we would expect).
