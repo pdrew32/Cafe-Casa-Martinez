@@ -26,7 +26,7 @@ First, I cleaned the data by translating the columns from Spanish to English and
 Next, I performed an exploratory data analysis. First, I calculated Pearson correlation coefficients for all parameters. This coefficient is a measure of the linear correlation between parameters with values closer to 1 (or -1) being highly correlated and values closer to 0 being uncorrelated. I found the following:
 
 | Parameter 1      | Parameter 2 | Pearson Correlation Coefficient | P-value | Statistically Significant? |
-| ---------------- | ----------- | ------------------------------- | ------ | --- |
+| --------------- | ----------- | ------------------------------- | ------ | --- |
 |  Total Production  |  Year  |  0.88 |  8.8e-5 |  yes  |
 |  Production Per Plant  |  Year  |  0.79  |  1.3e-5 |  yes  |
 |  Total Number of Plants  |  Year  |  0.75  |  3.1e-3 |  yes  |
@@ -34,6 +34,5 @@ Next, I performed an exploratory data analysis. First, I calculated Pearson corr
 |  Production Per Plant  |  Total May Rainfall  |  0.66  |  1.4e-2 |  yes  |
 |  Total Production  |  Total May Rainfall  |  0.64  |  1.8e-2 |  yes  |
 
-Here I do not include self-correlations such as the correlation between total production per plant and total production nor am I including the correlations between rainfall totals in different months because these correlations are not interesting for our purposes. I manually reviewed all the other correlations to make sure there was nothing else interesting to look at.
+The P-value describes the probability that a correlation is caused by a random association, and any values smaller than 5e-2 are considered significant. All correlations shown here are smaller than 5e-2 and are therefore significant.
 The total production and production per plant are highly correlated with year because Cafe Casa Martinez has been renewing their fields and have not yet reached the stable equilibrium that will be achieved after all fields are renewed on schedule. The total number of plants producing each year is also correlated with year, which further contributes to the total production. In the coming years this correlation will drop away because they will be on the optimal renewal schedule. This is the first key takeaway. It is more important to stick with the renewal schedule than anything else, even to have adequate rainfall.
-
