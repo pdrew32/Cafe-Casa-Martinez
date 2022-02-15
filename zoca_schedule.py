@@ -3,6 +3,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from scipy.optimize import curve_fit
 from itertools import islice, cycle
+import constants_helper as ch
 
 
 """
@@ -45,8 +46,8 @@ future_prod = pd.DataFrame(0.0, index=list(lots.index), columns=np.arange(2008, 
 # fill fields that were producing when the farm was purchased with the lowest production estimated from the data
 future_prod.loc[np.isnan(lots.cut_year.astype(float))] = production_vs_time[4]
 
-prod_curve_zoca = [0, 0.25, 0.8, 1.0, 0.7, 0.55]
-prod_curve_sow = [0, 0, 0.5, 0.7, 1.0, 0.7, 0.55]
+prod_curve_zoca = ch.c.prod_curve_zoca
+prod_curve_sow = ch.c.prod_curve_sow
 for i in list(lots.index):
     # if previously renewed, fill with zoca productivity curve for years in the future and make it cyclical
     if ~np.isnan(lots.loc[i, 'cut_year']):
