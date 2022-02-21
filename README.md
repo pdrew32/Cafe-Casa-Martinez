@@ -41,4 +41,4 @@ Our next main result is that **rainfall in the month of May is most highly corre
 
 The black line shows the best fit correlation between May rainfall totals and total production and the red line shows the estimated production required to make a profit, provided by Café Casa Martinez. May rainfall totals greater than 203.2 mm will result in a profit.
 
-This leads us to our second recommendation to maximize production. **If rainfall in the month of May is going to be below 203.2 mm, the farm should consider watering their lots.** Typically, the farm does not irrigate their plants, rather they rely on rainfall to water their plants. It is possible to have water delivered by truck and sprayed on the plants, however it is not something that has been previously explored by the farm. The cost of these trucks would have to be offset by profits in the coffee.
+This leads us to our second recommendation to maximize production. **If rainfall in the month of May is going to be below 203.2 mm, the farm should consider watering their lots.** 
