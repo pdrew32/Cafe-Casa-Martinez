@@ -3,7 +3,7 @@
 
 These coffee plants produce fruit at a fraction of their maximum productivity that depends on the number of years since the tree has been planted. No fruit is produced in the year of sowing or the following year. In the year after that the plant will produce fruit at 50% of its maximum. The fourth year sees maximum fruit production and each year after that sees decreasing production. For this reason, in the 6th year after sowing the farmers perform a process called renewal, or zoca, where the plant is cut near its base. The plant then regrows from the stump and returns to maximum production after two more years. Plants may be renewed up to 5 times. The following figure shows the production curve as a function of year covering the sowing cycle and three zoca cycles.
 
-<img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/production_fraction_vs_year.png" width="500">
+<img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/production_fraction_vs_year.png" width="400">
 
 Farms like Finca Tulipan have multiple fields of coffee that were sown in different years and are therefore in different years of their renewal cycles. It is best practice to stagger renewal and sowing across different fields so that total production stays as close as uniform as possible across years.
 
@@ -36,8 +36,8 @@ The fact that the 4th strongest correlation is between total number of plants an
 Our next main result is that **rainfall in the month of May is most highly correlated with production.** This is surprising to the owners of Café Casa Martinez because it is known that rainfall in the month of February is what causes the plants to flower, so it was assumed that rainfall during that month is important. There is no correlation between February rainfall totals and production. The Pearson correlation coefficient is -0.2, which is much closer to 0 than to positive or negative 1. Additionally, the probability that this is a chance correlation is high, given that the P-value associated with the correlation is higher than 0.05 (actual value is 0.14). February rainfall may be the rain that causes the plant to flower, but the rainfall that contributes most strongly to the production of coffee beans occurs during the month of May. Rainfall totals do not have a significant correlation with production in any other month. The figure below on the left shows the correlation between total production and May rainfall totals and the figure on the right shows production per plant versus May rainfall.
 
 <p float="left">
-  <img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/may_rain_vs_production.png" width="500">  
-  <img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/may_rain_vs_production_per_plant.png" width="500">
+  <img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/may_rain_vs_production.png" width="400">  
+  <img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/may_rain_vs_production_per_plant.png" width="400">
 </p>
 
 
@@ -47,7 +47,7 @@ This leads us to our second recommendation to maximize production. **If rainfall
 
 First, I investigate the accuracy of this approach assuming we could perfectly predict May rainfall totals using machine learning. This is obviously not achievable, but it is important to investigate given the scatter in the relation between May rainfall totals and total production, as this will set the upper limit on our accuracy. The first constraint we want to impose, given the intrinsic scatter in the relation between May rainfall and total production, is to predict whether a year will be profitable rather than to predict the production in kg. In the figure below I adopt the value of the best fit relation between May rainfall totals and total production for each year and ask whether the true value and the predicted value are above or below the profit threshold.
 
-<img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/may_rain_vs_production_perfect_info_with_year.png" width="500">
+<img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/may_rain_vs_production_perfect_info_with_year.png" width="400">
 
 Here the squares show the true production and the circles show the production that would be predicted if we could perfectly predict the true May rainfall totals. The color of the square denotes the year according to the color bar on the right. Grey lines connect data where the true and predicted production are both below or both above the profitability threshold, which is shown as the black line. Red lines connect years where one would predict profitability when there would be a net loss or vice versa. I find that 80% of the time (8 out of 15 years) we accurately predict whether a year would be profitable, so this sets our expected upper limit of accuracy before we proceed with machine learning to predict May rainfall totals based on prior rain data.
 
