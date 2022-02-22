@@ -1,18 +1,13 @@
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
-from sklearn.preprocessing import RobustScaler
-from scipy.stats import pearsonr
 import seaborn as sns
+import constants_helper as c
 
-def normalized_regression(x, y, order=1):
-    """
-    Normalize the data and perform a linear regression
-    """
-    normx = (x-np.median(x))/(np.percentile(x, 75) - np.percentile(x, 25))
-    normy = (y-np.median(y))/(np.percentile(y, 75) - np.percentile(y, 25))
-    m, b = np.polyfit(normx, normy, order)
-    return m, b
+
+"""
+Fit and save best fit correlations and make some plots using them for the analysis
+"""
 
 plot_it = True
 save_fits = True
@@ -25,15 +20,8 @@ save_path_median_rain_vs_month = 'figures/median_rainfall_vs_month.png'
 save_path_may_rain_prod_perfect_prediction_with_year = 'figures/may_rain_vs_production_perfect_info_with_year.png'
 save_path_may_rain_prod_perfect_prediction = 'figures/may_rain_vs_production_perfect_info.png'
 
+
 tot_plants = pd.read_csv('data/tot_plants.csv', index_col=0)
-
-scaler = RobustScaler()
-data_scaled = scaler.fit_transform(tot_plants)
-t = tot_plants.copy()
-t.loc[:,:] = data_scaled
-
-c = t.corr()
-p = c.corr(method=lambda x, y: pearsonr(x, y)[1]) - np.eye(len(t.columns))
 
 # quickly fit a line to get started values for m and before fitting our main model
 m_rain_prod, b_rain_prod = np.polyfit(tot_plants.may_rain_cm.values, tot_plants.total_production.values, 1)
@@ -41,15 +29,13 @@ m_rain_prod_per_plant, b_rain_prod_per_plant = np.polyfit(tot_plants.may_rain_cm
 m_nplants_prod, b_nplants_prod = np.polyfit(tot_plants.tot_plants.values, tot_plants.total_production.values, 1)
 m_year_prod, b_year_prod = np.polyfit(tot_plants.year.values, tot_plants.total_production.values, 1)
 
-# m_rain_prod, b_rain_prod = normalized_regression(tot_plants.may_rain_cm.values, tot_plants.total_production.values)
-
-
 if save_fits is True:
     np.save('data/lin_reg_best_fit_may_rain_total_production.npy', [m_rain_prod, b_rain_prod])
     np.save('data/lin_reg_best_fit_may_rain_production_per_plant.npy', [m_rain_prod_per_plant, b_rain_prod_per_plant])
     np.save('data/lin_reg_best_fit_total_plants_production.npy', [m_nplants_prod, b_nplants_prod])
 
-profit_threshold = 28*125
+
+profit_threshold = c.c.profit_thresh_kg
 x_ = tot_plants.may_rain_cm
 y_ = m_rain_prod*x_ + b_rain_prod
 
