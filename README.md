@@ -12,6 +12,7 @@ The first goal was to determine which quantities correlate with yearly productio
 
 # Summary of Results
 1.	Sticking with the optimal plant renewal schedule is the single most important factor to maximize production.
+2.	May rainfall totals correlate with production per plant and total production.
 # Steps
 Café Casa Martinez has daily rainfall records reaching back to October 2006, yearly coffee production totals since 2008, records of the month and day of sowing and renewal, and the number of plants in each of their 14 lots. First, I cleaned the data by translating the columns from Spanish to English and removing the excel formatting of each file, as Café Casa Martinez works with each file in excel. I saved the clean pandas data frames for use in other scripts. 
 
@@ -34,7 +35,11 @@ The fact that the 4th strongest correlation is between total number of plants an
 
 Our next main result is that **rainfall in the month of May is most highly correlated with production.** This is surprising to the owners of Café Casa Martinez because it is known that rainfall in the month of February is what causes the plants to flower, so it was assumed that rainfall during that month is important. There is no correlation between February rainfall totals and production. The Pearson correlation coefficient is -0.2, which is much closer to 0 than to positive or negative 1. Additionally, the probability that this is a chance correlation is high, given that the P-value associated with the correlation is higher than 0.05 (actual value is 0.14). February rainfall may be the rain that causes the plant to flower, but the rainfall that contributes most strongly to the production of coffee beans occurs during the month of May. Rainfall totals do not have a significant correlation with production in any other month. The figure below shows the correlation between total production and May rainfall totals.
 
-<img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/may_rain_vs_production.png" width="500">
+<p float="left">
+  <img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/may_rain_vs_production.png" width="500">  
+  <img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/may_rain_vs_production_per_plant.png" width="500">
+</p>
+
 
 The black line shows the best fit correlation between May rainfall totals and total production and the red line shows the estimated production required to make a profit, provided by Café Casa Martinez. May rainfall totals greater than 203.2 mm will result in a profit.
 
