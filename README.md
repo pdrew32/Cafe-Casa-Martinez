@@ -7,18 +7,15 @@ These coffee plants produce fruit at a fraction of their maximum productivity th
 
 Farms like Finca Tulipan have multiple fields of coffee that were sown in different years and are therefore in different years of their renewal cycles. It is best practice to stagger renewal and sowing across different fields so that total production stays as close as uniform as possible across years.
 
-# Available Data
-Café Casa Martinez has daily rainfall records reaching back to October 2006, yearly coffee production totals since 2008, records of the month and day of sowing and renewal, and the number of plants in each of their 14 lots. 
-
 # Key Goals
-The first goal was to determine which quantities correlate with yearly production and to consult with Café Casa Martinez about  practices could increase or maximize production. Secondary goals include investigating what requirements there are to make a profit each year. 
+The first goal was to determine which quantities correlate with yearly production and to consult with Café Casa Martinez about using this information to maximize production. Secondary goals include investigating what is required to make a profit each year.
 
 # Summary of Results
 1.	Sticking with the optimal plant renewal schedule is the single most important factor to maximize production.
 # Steps
-First, I cleaned the data by translating the columns from Spanish to English and removing the excel formatting of each file, as Café Casa Martinez works with each file in excel. I saved the clean pandas data frames for use in other scripts. 
+Café Casa Martinez has daily rainfall records reaching back to October 2006, yearly coffee production totals since 2008, records of the month and day of sowing and renewal, and the number of plants in each of their 14 lots. First, I cleaned the data by translating the columns from Spanish to English and removing the excel formatting of each file, as Café Casa Martinez works with each file in excel. I saved the clean pandas data frames for use in other scripts. 
 
-Next, I performed an exploratory data analysis. First, I normalized the data using the robust scaler from sklearn and then calculated Pearson correlation coefficients and P-values for all parameters. This coefficient is a measure of the linear correlation between parameters with values closer to 1 (or -1) being highly correlated and values closer to 0 being uncorrelated. I found the following:
+Next, I performed an exploratory data analysis. First, I normalized the data using the robust scaler from scikit-learn and then calculated Pearson correlation coefficients and P-values for all parameters. This coefficient is a measure of the linear correlation between parameters with values closer to 1 (or -1) being highly correlated and values closer to 0 being uncorrelated. I found the following:
 
 | Parameter 1      | Parameter 2 | Pearson Correlation Coefficient | P-value | Statistically Significant? |
 | ---------------- | ----------- | ------------------------------- | ------ | --- |
