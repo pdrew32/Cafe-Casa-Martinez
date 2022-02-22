@@ -36,8 +36,8 @@ The fact that the 4th strongest correlation is between total number of plants an
 Our next main result is that **rainfall in the month of May is most highly correlated with production.** This is surprising to the owners of Café Casa Martinez because it is known that rainfall in the month of February is what causes the plants to flower, so it was assumed that rainfall during that month is important. There is no correlation between February rainfall totals and production. The Pearson correlation coefficient is -0.2, which is much closer to 0 than to positive or negative 1. Additionally, the probability that this is a chance correlation is high, given that the P-value associated with the correlation is higher than 0.05 (actual value is 0.14). February rainfall may be the rain that causes the plant to flower, but the rainfall that contributes most strongly to the production of coffee beans occurs during the month of May. Rainfall totals do not have a significant correlation with production in any other month. The figure below on the left shows the correlation between total production and May rainfall totals and the figure on the right shows production per plant versus May rainfall.
 
 <p float="left">
-  <img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/may_rain_vs_production.png" width="500">  
-  <img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/may_rain_vs_production_per_plant.png" width="500">
+  <img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/may_rain_vs_production.png" width="300">  
+  <img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/may_rain_vs_production_per_plant.png" width="300">
 </p>
 
 
