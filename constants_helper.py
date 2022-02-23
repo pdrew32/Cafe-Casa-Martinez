@@ -21,4 +21,5 @@ class c:
 
     cargas_to_kg_factor = 125
     profit_thresh_kg = 28*cargas_to_kg_factor
+    may_rain_profit_threshold = 203.2
 
