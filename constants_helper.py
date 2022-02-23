@@ -19,4 +19,6 @@ class c:
     corr = t.corr()
     pval = corr.corr(method=lambda x, y: pearsonr(x, y)[1]) - np.eye(len(t.columns))
 
-    profit_thresh_kg = 28*125
+    cargas_to_kg_factor = 125
+    profit_thresh_kg = 28*cargas_to_kg_factor
+
