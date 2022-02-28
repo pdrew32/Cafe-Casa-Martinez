@@ -47,7 +47,16 @@ This leads us to our second recommendation to maximize production. **If rainfall
 
 First, I investigate the accuracy of this approach assuming we could perfectly predict May rainfall totals using machine learning. This is obviously not achievable, but it is important to investigate given the scatter in the relation between May rainfall totals and total production, as this will set the upper limit on our accuracy. The first constraint we want to impose, given the intrinsic scatter in the relation between May rainfall and total production, is to predict whether a year will be profitable rather than to predict the production in kg. In the figure below I adopt the value of the best fit relation between May rainfall totals and total production for each year and ask whether the true value and the predicted value are above or below the profit threshold.
 
-<img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/may_rain_vs_production_perfect_info_with_year.png" width="400">
+<img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/may_rain_vs_production_perfect_info_with_year.png" width="500">
 
 Here the squares show the true production and the circles show the production that would be predicted if we could perfectly predict the true May rainfall totals. The color of the square denotes the year according to the color bar on the right. Grey lines connect data where the true and predicted production are both below or both above the profitability threshold, which is shown as the black line. Red lines connect years where one would predict profitability when there would be a net loss or vice versa. I find that 80% of the time (8 out of 15 years) we accurately predict whether a year would be profitable, so this sets our expected upper limit of accuracy before we proceed with machine learning to predict May rainfall totals based on prior rain data.
+
+Additionally, we have daily rainfall totals from November 2006 until January 2022. This time series data can be decomposed into seasonal and trend components which may provide useful insights. The figure below on the left shows the observed rainfall totals for each month, the underlying trend, the seasonal trend, and the residuals of the decomposition. The middle figure shows a zoom in on the trend curve, and the right figure shows the seasonal trend repeating for 5 years so more detail may be seen.
+
+<p float="left">
+    <img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/seasonal_decomposition_plot.png" width="330">
+    <img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/seasonal_trend_plot.png" width="330">
+    <img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/seasonal_curve_plot.png" width="330">
+</p>
+
 
