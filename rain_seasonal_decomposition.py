@@ -2,6 +2,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 import numpy as np
 from statsmodels.tsa.seasonal import seasonal_decompose
+from statsmodels.tsa.stattools import kpss, adfuller
 
 """
 Perform a seasonal decomposition on monthly rainfall data and calculate strength of trend and seasonal components
@@ -83,3 +84,25 @@ plt.show()
 
 print(f"Trend Strength: {np.round(trend_strength(tsd), 4)}")
 print(f"Seasonal Strength: {np.round(seasonal_strength(tsd), 4)}")
+
+# split into testing and training at the year closest to 70% of the data
+split_at_70_percent = np.floor(len(time_series) * 0.7/12).astype(int) * 12
+train = time_series[:split_at_70_percent]
+test = time_series[split_at_70_percent:]
+
+# check the stationarity of the training data using Kwiatkowski-Phillips-Schmidt-Shin Test
+kpss_stat, p_value, lags, crit = kpss(train, nlags='auto')
+print(f'KPSS statisitic: {np.round(kpss_stat, 4)}')
+print(f'KPSS p value: {np.round(p_value, 4)}. If > 0.05 data consistent with stationary.')
+if p_value > 0.05:
+    print('KPSS says stationary')
+else: 
+    print('KPSS says non-stationary')
+
+adf = adfuller(train, regression='c')
+print(f'ADF statisitic: {np.round(adf[0], 4)}')
+print(f'ADF p value: {np.round(adf[1], 4)}. If < 0.05 data consistent with stationary.')
+if adf[1] < 0.05:
+    print('ADF says stationary')
+else: 
+    print('ADF says non-stationary')
