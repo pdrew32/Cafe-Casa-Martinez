@@ -3,6 +3,9 @@ from matplotlib import pyplot as plt
 import numpy as np
 from statsmodels.tsa.seasonal import seasonal_decompose
 
+"""
+Perform a seasonal decomposition on monthly rainfall data and calculate strength of trend and seasonal components
+"""
 
 def trend_strength(tsd):
     """
