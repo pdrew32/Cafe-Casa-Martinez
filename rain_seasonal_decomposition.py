@@ -3,6 +3,10 @@ from matplotlib import pyplot as plt
 import numpy as np
 from statsmodels.tsa.seasonal import seasonal_decompose
 from statsmodels.tsa.stattools import kpss, adfuller
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.tsa.exponential_smoothing.ets import ETSModel
+import hurst
 
 """
 Perform a seasonal decomposition on monthly rainfall data and calculate strength of trend and seasonal components
@@ -31,6 +35,8 @@ save_figures = False
 seasonal_decomp_plot_path = 'figures/seasonal_decomposition_plot.png'
 seasonal_trend_plot_path = 'figures/seasonal_trend_plot.png'
 seasonal_seasonal_plot_path = 'figures/seasonal_curve_plot.png'
+autocorrelation_plot_path = 'figures/autocorrelation.png'
+patrial_autocorrelation_plot_path = 'figures/partial_autocorrelation.png'
 
 rain = pd.read_csv('data/rain.csv', index_col=0)
 time_series = np.sum(rain.loc[rain.year >= 2007, rain.columns[1:-2]], axis=1).values
@@ -86,9 +92,11 @@ print(f"Trend Strength: {np.round(trend_strength(tsd), 4)}")
 print(f"Seasonal Strength: {np.round(seasonal_strength(tsd), 4)}")
 
 # split into testing and training at the year closest to 70% of the data
-split_at_70_percent = np.floor(len(time_series) * 0.7/12).astype(int) * 12
-train = time_series[:split_at_70_percent]
-test = time_series[split_at_70_percent:]
+# split_at_70_percent = np.floor(len(time_series) * 0.7/12).astype(int) * 12
+# train = time_series[:split_at_70_percent]
+# test = time_series[split_at_70_percent:]
+train = time_series[:-12]
+test = time_series[-12:]
 
 # check the stationarity of the training data using Kwiatkowski-Phillips-Schmidt-Shin Test
 kpss_stat, p_value, lags, crit = kpss(train, nlags='auto')
@@ -106,3 +114,76 @@ if adf[1] < 0.05:
     print('ADF says stationary')
 else: 
     print('ADF says non-stationary')
+
+# calculate the hurst exponent, a measure of the memory of a time series
+H, c, data = hurst.compute_Hc(train, simplified=True)
+print(f"Hurst Exponent: {np.round(H, 4)}")
+print("Values < 0.5 imply mean-reverting. Close to 0.5 imply random walk. > 0.5 imply trending.")
+
+
+# auto correlation plot
+plot_acf(train)
+plt.xlabel('lag (Months)')
+plt.ylabel('Autocorrelation')
+if save_figures is True:
+    plt.savefig(autocorrelation_plot_path)
+plt.show()
+
+plot_pacf(train)
+plt.xlabel('lag (Months)')
+plt.ylabel('Partial Autocorrelation')
+if save_figures is True:
+    plt.savefig(patrial_autocorrelation_plot_path)
+plt.show()
+
+# fit arima model
+mod1 = ARIMA(train, order=(1, 0, 2), seasonal_order=(1, 0, 2, 12))
+res1 = mod1.fit()
+mod2 = ARIMA(train, order=(2, 0, 2), seasonal_order=(2, 0, 2, 12))
+res2 = mod2.fit()
+mod3 = ARIMA(train, order=(3, 0, 3), seasonal_order=(3, 0, 3, 12))
+res3 = mod3.fit()
+mod4 = ARIMA(train, order=(0, 0, 0), seasonal_order=(0, 0, 0, 12))
+res4 = mod4.fit()
+mod5 = ARIMA(train, order=(1, 0, 1), seasonal_order=(1, 0, 1, 12))
+res5 = mod5.fit()
+mod6 = ARIMA(train, order=(1, 0, 3), seasonal_order=(1, 0, 3, 12))
+res6 = mod6.fit()
+
+# res1 has the lowest aicc, so check its residuals and the autocorrelation plot of the residuals to check if it's a good model
+plt.plot(res1.resid)
+plt.ylabel('Residuals')
+plt.xlabel('Month')
+plt.show()
+
+plt.hist(res1.resid, bins=20)
+plt.ylabel('Count')
+plt.xlabel('Residuals')
+plt.show()
+
+plot_acf(res1.resid)
+plt.xlabel('Lag')
+plt.ylabel('Partial Autocorrelation')
+plt.show()
+
+# since the residuals are uncorrelated with each other on the acf plot and there's no trend in the plot of the residuals we conclude this is a good forecasting model.
+# res1 with order=(1, 0, 2), seasonal_order=(1, 0, 2, 12) is the best model we have with ARIMA
+
+"""
+# Now let's compare the results with a different model, ETS
+# Actually, this didn't work. If I have time later maybe I could test other models but for now let's move on
+ets_model = ETSModel(train, seasonal_periods=12)
+ets_fit = ets_model.fit()
+
+plt.plot(train)
+plt.plot(ets_fit.fittedvalues)
+plt.show()
+"""
+
+forecast_test = res1.forecast(steps=12)
+
+plt.plot(forecast_test, label='forecast', linewidth=3)
+plt.plot(test, label='truth', linewidth=3)
+plt.legend(fontsize='x-small')
+plt.show()
+
