@@ -5,7 +5,6 @@ from statsmodels.tsa.seasonal import seasonal_decompose
 from statsmodels.tsa.stattools import kpss, adfuller
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 from statsmodels.tsa.arima.model import ARIMA
-from statsmodels.tsa.exponential_smoothing.ets import ETSModel
 import hurst
 
 """
