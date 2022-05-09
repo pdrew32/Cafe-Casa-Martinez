@@ -1,15 +1,10 @@
 import pandas as pd
 import numpy as np
 from scipy.stats import pearsonr
-from sklearn.preprocessing import RobustScaler
 
 
-tot_plants = pd.read_csv('data/tot_plants.csv', index_col=0)
+t = pd.read_csv('data/tot_plants.csv', index_col=0)
 
-scaler = RobustScaler()
-data_scaled = scaler.fit_transform(tot_plants)
-t = tot_plants.copy()
-t.loc[:,:] = data_scaled
 
 class c:
     """define class to hold constants we will repeatedly use in different scripts"""
