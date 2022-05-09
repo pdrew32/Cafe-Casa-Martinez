@@ -14,9 +14,9 @@ The first goal was to determine which quantities correlate with yearly productio
 1.	Sticking with the optimal plant renewal schedule is the single most important factor to maximize production.
 2.	May rainfall totals correlate with production per plant and total production.
 # Steps
-Café Casa Martinez has daily rainfall records reaching back to October 2006, yearly coffee production totals since 2008, records of the month and day of sowing and renewal, and the number of plants in each of their 14 lots. First, I cleaned the data by translating the columns from Spanish to English and removing the excel formatting of each file, as Café Casa Martinez works with each file in excel. I saved the clean pandas data frames for use in other scripts. 
+Café Casa Martinez has daily rainfall records reaching back to October 2006, yearly coffee production totals since 2008, records of the month and day of sowing and renewal, and the number of plants in each of their 14 lots. 
 
-Next, I performed an exploratory data analysis. First, I normalized the data using the robust scaler from scikit-learn and then calculated Pearson correlation coefficients and P-values for all parameters. This coefficient is a measure of the linear correlation between parameters with values closer to 1 (or -1) being highly correlated and values closer to 0 being uncorrelated. I found the following:
+First, I cleaned the data by translating the columns from Spanish to English. Next, I performed an exploratory data analysis. First, I normalized the data using the robust scaler from scikit-learn and then calculated Pearson correlation coefficients and P-values for all parameters. This coefficient is a measure of the linear correlation between parameters with values closer to 1 (or -1) being highly correlated and values closer to 0 being uncorrelated. I found the following:
 
 | Parameter 1      | Parameter 2 | Pearson Correlation Coefficient | P-value | Statistically Significant? |
 | ---------------- | ----------- | ------------------------------- | ------ | --- |
