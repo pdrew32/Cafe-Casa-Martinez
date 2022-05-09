@@ -16,7 +16,7 @@ The first goal was to determine which quantities correlate with yearly productio
 # Steps
 Café Casa Martinez has daily rainfall records reaching back to October 2006, yearly coffee production totals since 2008, records of the month and day of sowing and renewal, and the number of plants in each of their 14 lots. 
 
-First, I cleaned the data by translating the columns from Spanish to English. Next, I performed an exploratory data analysis. First, I normalized the data using the robust scaler from scikit-learn and then calculated Pearson correlation coefficients and P-values for all parameters. This coefficient is a measure of the linear correlation between parameters with values closer to 1 (or -1) being highly correlated and values closer to 0 being uncorrelated. I found the following:
+First, I performed an exploratory data analysis. I normalized the data using the robust scaler from scikit-learn and then calculated Pearson correlation coefficients and P-values for all parameters. The Pearson correlation coefficient is a measure of the linear correlation between variables in the dataset. Pearson correlation values closer to 1 (or -1) are highly correlated and values closer to 0 are uncorrelated. The following table summarizes my findings for statistically significant correlations:
 
 | Parameter 1      | Parameter 2 | Pearson Correlation Coefficient | P-value | Statistically Significant? |
 | ---------------- | ----------- | ------------------------------- | ------ | --- |
