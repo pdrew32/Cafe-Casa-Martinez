@@ -11,11 +11,13 @@ Café Casa Martinez provided me with daily rainfall records reaching back to Oct
 
 # Key Goals
 1. Optimize the renewal schedule to minimize inter-year variation in production.
-2. Determine which quantities correlate with yearly production and to consult with Café Casa Martinez about using this information to maximize production. Secondary goals include investigating what is required to make a profit each year.
+2. Determine which quantities correlate with yearly production.
+3. Train a machine learning algorithm to predict whether the company should expect to make a profit in any given year.
 
 # Summary of Results
-1.	Sticking with the optimal plant renewal schedule is the single most important factor to maximize production.
-2.	May rainfall totals correlate with production per plant and total production.
+1.	Planting new fields and renewing fields on time are the two most important factors Café Casa Martinez can do to maximize production. These factors correlate more strongly with production than rainfall.
+2.	May rainfall totals correlate with production per plant and total production. Rainfall in this month is the only one that correlates with production.
+3.	I present a weather forecasting model to predict rainfall on the farm. This may be used to predict whether a profit should be expected at the end of the year.
 
 # Steps
 First, I cleaned the data, formatted them as pandas dataframes, and saved them for future use in other scripts. The script that performs these steps can be found [here](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/clean_data.py). Next, I performed exploratory data analysis to determine which features might correlate with interesting target variables. I calculated Pearson correlation coefficients and P-values between all parameters. The Pearson correlation coefficient is a measure of the linear correlation between features in the dataset. Pearson correlation coefficient values closer to 1 (or -1) are highly correlated and values closer to 0 are uncorrelated. The following table summarizes the strongest correlations between features and potential target variables of interest:
