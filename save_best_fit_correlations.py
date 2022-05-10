@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 import constants_helper as c
 from sklearn.linear_model import LinearRegression
-
+from sklearn.metrics import mean_squared_error, r2_score
 
 """
 Fit and save best fit correlations and make some plots using them for the analysis
@@ -24,15 +24,26 @@ save_path_may_rain_prod_perfect_prediction = 'figures/may_rain_vs_production_per
 
 tot_plants = pd.read_csv('data/tot_plants.csv', index_col=0)
 
+def lin_reg_params(x, y):
+    """
+    return m, b, variance, mse, r2 score from linear regression
+    """
+    reg = LinearRegression().fit(x, y)
+    yhat = reg.predict(x)
+    mse = mean_squared_error(y, yhat)
+    r2 = r2_score(y, yhat)
+    return reg.coef_, reg.intercept_, mse, r2, reg
+
 # fit a line to get started values for m and before fitting our main model
-reg = LinearRegression().fit(tot_plants.may_rain_cm.values.reshape(-1,1), tot_plants.total_production.values)
-m_rain_prod, b_rain_prod = reg.coef_, reg.intercept_
-reg = LinearRegression().fit(tot_plants.may_rain_cm.values.reshape(-1,1), tot_plants.prod_per_plant_kg.values)
-m_rain_prod_per_plant, b_rain_prod_per_plant = reg.coef_, reg.intercept_
-reg = LinearRegression().fit(tot_plants.tot_plants.values.reshape(-1,1), tot_plants.total_production.values)
-m_nplants_prod, b_nplants_prod = reg.coef_, reg.intercept_
-reg = LinearRegression().fit(tot_plants.year.values.reshape(-1,1), tot_plants.total_production.values)
-m_year_prod, b_year_prod = reg.coef_, reg.intercept_
+m_rain_prod, b_rain_prod, mse_rain_prod, r2_m_prod, reg_rain_prod = lin_reg_params(tot_plants.may_rain_cm.values.reshape(-1,1), tot_plants.total_production.values)
+
+m_rain_tot_prod, b_rain_tot_prod, mse_rain_tot_prod, r2_rain_tot_prod, reg_rain_tot_prod = lin_reg_params(tot_plants.may_rain_cm.values.reshape(-1,1), tot_plants.total_production.values)
+
+m_rain_prod_per_plant, b_rain_prod_per_plant, mse_rain_prod_per_plant, r2_rain_prod_per_plant, reg_rain_prod_per_plant = lin_reg_params(tot_plants.may_rain_cm.values.reshape(-1,1), tot_plants.prod_per_plant_kg.values)
+
+m_nplants_prod, b_nplants_prod, mse_nplants_prod, r2_nplants_prod, reg_nplants_prod = lin_reg_params(tot_plants.tot_plants.values.reshape(-1,1), tot_plants.total_production.values)
+
+reg_year_prod, b_year_prod, mse_year_prod, r2_year_prod, reg_year_prod = lin_reg_params(tot_plants.year.values.reshape(-1,1), tot_plants.total_production.values)
 
 if save_fits is True:
     np.save('data/lin_reg_best_fit_may_rain_total_production.npy', [m_rain_prod, b_rain_prod])
