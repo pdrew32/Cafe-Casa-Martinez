@@ -43,7 +43,7 @@ Our next main result is that **rainfall in the month of May is most highly corre
 </p>
 
 
-The black lines show the best fit correlations between the parameters and the red line in the left figure shows the estimated production required to make a profit, according to Café Casa Martinez. May rainfall totals greater than 203.2 mm will result in a profit.
+The black lines show the best fit correlations between total production or production per plant and may rainfall totals.  The red line in the left figure shows the estimated production required to make a profit, according to Café Casa Martinez. May rainfall totals greater than 203.2 mm will result in a profit.
 
 This leads us to our second recommendation to maximize production. **If rainfall in the month of May is going to be below 203.2 mm, the farm should consider watering their lots.** One never knows how much rain is going to fall in May ahead of time, so next I explore whether machine learning can accurately predict May rainfall totals, and thus yearly production.
 
