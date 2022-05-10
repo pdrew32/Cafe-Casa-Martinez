@@ -37,8 +37,6 @@ def lin_reg_params(x, y):
 # fit a line to get started values for m and before fitting our main model
 m_rain_prod, b_rain_prod, mse_rain_prod, r2_m_prod, reg_rain_prod = lin_reg_params(tot_plants.may_rain_cm.values.reshape(-1,1), tot_plants.total_production.values)
 
-m_rain_tot_prod, b_rain_tot_prod, mse_rain_tot_prod, r2_rain_tot_prod, reg_rain_tot_prod = lin_reg_params(tot_plants.may_rain_cm.values.reshape(-1,1), tot_plants.total_production.values)
-
 m_rain_prod_per_plant, b_rain_prod_per_plant, mse_rain_prod_per_plant, r2_rain_prod_per_plant, reg_rain_prod_per_plant = lin_reg_params(tot_plants.may_rain_cm.values.reshape(-1,1), tot_plants.prod_per_plant_kg.values)
 
 m_nplants_prod, b_nplants_prod, mse_nplants_prod, r2_nplants_prod, reg_nplants_prod = lin_reg_params(tot_plants.tot_plants.values.reshape(-1,1), tot_plants.total_production.values)
