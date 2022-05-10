@@ -3,6 +3,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import seaborn as sns
 import constants_helper as c
+from sklearn.linear_model import LinearRegression
 
 
 """
@@ -23,11 +24,15 @@ save_path_may_rain_prod_perfect_prediction = 'figures/may_rain_vs_production_per
 
 tot_plants = pd.read_csv('data/tot_plants.csv', index_col=0)
 
-# quickly fit a line to get started values for m and before fitting our main model
-m_rain_prod, b_rain_prod = np.polyfit(tot_plants.may_rain_cm.values, tot_plants.total_production.values, 1)
-m_rain_prod_per_plant, b_rain_prod_per_plant = np.polyfit(tot_plants.may_rain_cm.values, tot_plants.prod_per_plant_kg.values, 1)
-m_nplants_prod, b_nplants_prod = np.polyfit(tot_plants.tot_plants.values, tot_plants.total_production.values, 1)
-m_year_prod, b_year_prod = np.polyfit(tot_plants.year.values, tot_plants.total_production.values, 1)
+# fit a line to get started values for m and before fitting our main model
+reg = LinearRegression().fit(tot_plants.may_rain_cm.values.reshape(-1,1), tot_plants.total_production.values)
+m_rain_prod, b_rain_prod = reg.coef_, reg.intercept_
+reg = LinearRegression().fit(tot_plants.may_rain_cm.values.reshape(-1,1), tot_plants.prod_per_plant_kg.values)
+m_rain_prod_per_plant, b_rain_prod_per_plant = reg.coef_, reg.intercept_
+reg = LinearRegression().fit(tot_plants.tot_plants.values.reshape(-1,1), tot_plants.total_production.values)
+m_nplants_prod, b_nplants_prod = reg.coef_, reg.intercept_
+reg = LinearRegression().fit(tot_plants.year.values.reshape(-1,1), tot_plants.total_production.values)
+m_year_prod, b_year_prod = reg.coef_, reg.intercept_
 
 if save_fits is True:
     np.save('data/lin_reg_best_fit_may_rain_total_production.npy', [m_rain_prod, b_rain_prod])
