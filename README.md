@@ -19,7 +19,7 @@ Café Casa Martinez provided me with daily rainfall records reaching back to Oct
 2.	May rainfall totals correlate with production per plant and total production. Rainfall in this month is the only one that correlates with production.
 3.	I present a weather forecasting model to predict rainfall on the farm. This may be used to predict whether a profit should be expected at the end of the year.
 
-# Steps
+# Exploratory Data Analysis and Machine Learning
 First, I cleaned the data, formatted them as pandas dataframes, and saved them for future use in other scripts. The script that performs these steps can be found [here](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/clean_data.py). Next, I performed exploratory data analysis to determine which features might correlate with interesting target variables, such as total production and production per plant. I calculated Pearson correlation coefficients and P-values between all parameters. The Pearson correlation coefficient is a measure of the linear correlation between features in the dataset. Pearson correlation coefficient values closer to 1 (or -1) are highly correlated and values closer to 0 are uncorrelated. The following table summarizes the strongest correlations between features and target variables of interest:
 
 | Parameter 1      | Parameter 2 | Pearson Correlation Coefficient | P-value | Statistically Significant? |
@@ -68,6 +68,7 @@ Logistic Regression Accuracy = 92%
 
 These values suggest logistic regression does acceptably well. A grid search of optimal hyperparameters reveals the default values are best, C=1, penalty=l2. Now that we have an acceptable model it would be nice to be able to predict the rainfall for the current year in order to predict the production from the beginning of the year, rather than waiting until the end of August.
 
+# Weather Forecasting
 We have daily rainfall totals from November 2006 until January 2022. This time series data can be decomposed into seasonal and trend components which may provide useful insights. The first figure below shows the observed rainfall totals for each month, the underlying trend, the seasonal trend, and the residuals of the decomposition. The bottom left figure shows a zoom in on the trend curve, and the right figure shows the seasonal trend repeating for a single year so more detail may be seen.
 
 <p float="left">
