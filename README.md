@@ -60,9 +60,9 @@ Next I ran numerous classification algorithms to determine which provides the be
 
 After determining that logistic regression is the best algorithm in this case, I trained using all data and found the following confusion matrix:
 
-| Target | Precision | Recall | F1-score | Accuracy |
+| Target | Precision | Recall | F1-score | Accuracy = 92%|
 | ---- | ---- | ---- | ---- | --- | 
-| 0 | 0.89 | 1.0 | 0.94 |  92% |
+| 0 | 0.89 | 1.0 | 0.94 |  -  |
 | 1 | 1.0 | 0.8 | 0.89 |  -  |
 
 These values suggest logistic regression does acceptably well. Running a grid search of hyperparameters does not result in better accuracy, precision, or recall.
