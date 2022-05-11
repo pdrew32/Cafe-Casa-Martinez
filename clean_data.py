@@ -22,7 +22,7 @@ rain.columns = rain.columns.str.replace('Unnamed: ', 'day_')
 rain.rename(columns={rain.columns[0]:'month', rain.columns[-1]:'total'}, inplace=True)
 
 # drop rows that only contain titles
-rain.drop(index=rain.loc[(rain.month == rain.month.unique()[0]) | (rain.month == rain.month.unique()[1]) ].index, inplace=True) # | (rain.month == rain.month.unique()[2])
+rain.drop(index=rain.loc[(rain.month == rain.month.unique()[0]) | (rain.month == rain.month.unique()[1]) ].index, inplace=True)
 
 # get rows that correspond to years
 row_is_a_year_inds = rain.loc[np.isnan(rain.month.str.isnumeric().astype(float))].index
