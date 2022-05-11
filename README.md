@@ -60,12 +60,13 @@ Next I ran numerous classification algorithms to determine which provides the be
 
 After determining that logistic regression is the best algorithm in this case, I trained using all data and found the following confusion matrix:
 
-| Target | Precision | Recall | F1-score | Accuracy = 92%|
-| ---- | ---- | ---- | ---- | --- | 
-| 0 | 0.89 | 1.0 | 0.94 |  -  |
-| 1 | 1.0 | 0.8 | 0.89 |  -  |
+Logistic Regression Accuracy = 92%
+| Target | Precision | Recall | F1-score | 
+| ---- | ---- | ---- | ---- | 
+| 0 | 0.89 | 1.0 | 0.94 |  
+| 1 | 1.0 | 0.8 | 0.89 |  
 
-These values suggest logistic regression does acceptably well. Running a grid search of hyperparameters does not result in better accuracy, precision, or recall.
+These values suggest logistic regression does acceptably well.
 
 First, I investigate the accuracy of this approach assuming we could perfectly predict May rainfall totals using machine learning. This is obviously not achievable, but it is important to investigate given the scatter in the relation between May rainfall totals and total production, as this will set the upper limit on our accuracy. The first constraint we want to impose, given the intrinsic scatter in the relation between May rainfall and total production, is to predict whether a year will be profitable rather than to predict the production in kg. In the figure below I adopt the value of the best fit relation between May rainfall totals and total production for each year and ask whether the true value and the predicted value are above or below the profit threshold.
 
