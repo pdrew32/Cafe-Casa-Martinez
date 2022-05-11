@@ -36,6 +36,7 @@ seasonal_trend_plot_path = 'figures/seasonal_trend_plot.png'
 seasonal_seasonal_plot_path = 'figures/seasonal_curve_plot.png'
 autocorrelation_plot_path = 'figures/autocorrelation.png'
 patrial_autocorrelation_plot_path = 'figures/partial_autocorrelation.png'
+forecast_vs_reality_path = 'figures/forecast_vs_reality.png'
 
 rain = pd.read_csv('data/rain.csv', index_col=0)
 time_series = np.sum(rain.loc[rain.year >= 2007, rain.columns[1:-2]], axis=1).values
@@ -186,5 +187,7 @@ plt.plot(test, label='truth', linewidth=3)
 plt.ylabel('Rainfall Totals (mm)')
 plt.xlabel('Month')
 plt.legend(fontsize='x-small')
+if save_figures is True:
+    plt.savefig(forecast_vs_reality_path)
 plt.show()
 
