@@ -52,11 +52,11 @@ Next I ran numerous classification algorithms to determine which provides the be
 | Algorithm      | Mean Stratified K-fold Cross Validation Accuracy | 
 | ---------------- | ----------- |
 |  Logistic Regression  |  83%  |
-| Gaussian Naïve Bayes |   63%      |
-| K Nearest Neighbors   | 69%   |
 | Support Vector Machine |  71%  |
+| K Nearest Neighbors   | 69%   |
 | Decision Tree  |  69%  | 
 | Random Forest |  69%   |
+| Gaussian Naïve Bayes |   63%      |
 
 
 First, I investigate the accuracy of this approach assuming we could perfectly predict May rainfall totals using machine learning. This is obviously not achievable, but it is important to investigate given the scatter in the relation between May rainfall totals and total production, as this will set the upper limit on our accuracy. The first constraint we want to impose, given the intrinsic scatter in the relation between May rainfall and total production, is to predict whether a year will be profitable rather than to predict the production in kg. In the figure below I adopt the value of the best fit relation between May rainfall totals and total production for each year and ask whether the true value and the predicted value are above or below the profit threshold.
