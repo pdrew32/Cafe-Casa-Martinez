@@ -31,6 +31,8 @@ def seasonal_strength(tsd):
 
 
 save_figures = False
+save_forecast = True
+forecast_path = 'data/forecast_rainfall.npy'
 seasonal_decomp_plot_path = 'figures/seasonal_decomposition_plot.png'
 seasonal_trend_plot_path = 'figures/seasonal_trend_plot.png'
 seasonal_seasonal_plot_path = 'figures/seasonal_curve_plot.png'
@@ -191,3 +193,5 @@ if save_figures is True:
     plt.savefig(forecast_vs_reality_path)
 plt.show()
 
+if save_forecast is True:
+    np.save(forecast_path, forecast_test)
