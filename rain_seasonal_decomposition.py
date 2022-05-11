@@ -183,6 +183,8 @@ forecast_test = res1.forecast(steps=12)
 
 plt.plot(forecast_test, label='forecast', linewidth=3)
 plt.plot(test, label='truth', linewidth=3)
+plt.ylabel('Rainfall Totals (mm)')
+plt.xlabel('Month')
 plt.legend(fontsize='x-small')
 plt.show()
 
