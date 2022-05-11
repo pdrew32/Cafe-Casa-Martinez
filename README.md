@@ -43,7 +43,30 @@ Our next main result is that **rainfall in the month of May is most highly corre
 </p>
 
 
-The blue points represent individual years of May rainfall totals versus total production for the year (left figure) and total production per plant (right figure).  We see that the higher the rainfall in May, the higher the total production and the production per plant at the end of the year.  The black lines show the best fit correlations between total production or production per plant and may rainfall totals derived using ordinary least squares linear regression. The red line in the left figure shows the estimated production required to make a profit, according to Café Casa Martinez. May rainfall totals greater than 203.2 mm are expected to result in a profit. With this information, Café Casa Martinez could predict their production after observing the rainfall totals in the month of May, however the data is scattered considerably about the best fit. The R<sup>2</sup> score for the regression fit between May rainfall and total production is 0.41, meaning 41% of the variance seen in total production is explainable by the variance in May rainfall. We will see that we have better predictive power if we recast this as a classification problem where years are classified in terms of profitable versus non profitable and then classification algorithms are used.
+The blue points represent individual years of May rainfall totals versus total production for the year (left figure) and total production per plant (right figure).  We see that the higher the rainfall in May, the higher the total production and the production per plant at the end of the year.  The black lines show the best fit correlations between total production or production per plant and may rainfall totals derived using ordinary least squares linear regression. The red line in the left figure shows the estimated production required to make a profit, according to Café Casa Martinez. May rainfall totals greater than 203.2 mm are expected to result in a profit. With this information, Café Casa Martinez can predict their production after observing the rainfall totals in the month of May. However, the data is scattered considerably about the best fit.  The square root of the mean square error is 1450 kg, which is about 50% of the median production of all years.  The R<sup>2</sup> score for the regression fit between May rainfall and total production is 0.41, meaning 41% of the variance seen in total production is explainable by the variance in May rainfall. We will see that we have better predictive power if we recast this as a classification problem where years are classified in terms of profitable versus non profitable and then classification algorithms are used.
+
+First I add a new binary column to the pandas dataframe that is 1 if the production is greater than 3500 kg and 0 if less than. Then because I am working with numerical features and a categorical target I run an ANOVA and compute the f-statistic to find the features that correlate most strongly with the target variable. I find that rainfall during the month of may is significantly correlated with profitable years (p-value < 0.05), and august rainfall is significantly anti-correlated with profitable years. While this anti-correlation is not causal because all available evidence suggests that a lack of rainfall does not lead to increased production in plants, this correlation is significant and therefore I use this feature in my classification routine. During testing, I ran logistic regression on all features (monthly rainfall for all months) with total production as a target variable and found worse accuracy, precision, and recall than fits with just May and August rainfall totals.
+
+Next I ran numerous classification algorithms to determine which provides the best accuracy, including logistic regression, Gaussian naïve Bayes, k nearest neighbors, support vector machines, decision tree, and random forest. I run each of these after standardizing the features using the standard scaler from sklearn. I achieve the highest accuracy with logistic regression, as determined by stratified k-fold cross validation with 4 folds. I used stratified k-fold because there is a 70/30% split in the target variable, where 70% of years were unprofitable.  Using regular k-fold cross validation performs worse. The table below shows the accuracy of each of these methods.
+
+| Algorithm      | Mean Stratified K-fold Cross Validation Accuracy | 
+| ---------------- | ----------- |
+|  Logistic Regression  |  83%  |
+| Support Vector Machine |  71%  |
+| K Nearest Neighbors   | 69%   |
+| Decision Tree  |  69%  | 
+| Random Forest |  69%   |
+| Gaussian Naïve Bayes |   63%      |
+
+After determining that logistic regression is the best algorithm in this case, I trained using all data and found the following confusion matrix:
+
+Logistic Regression Accuracy = 92%
+| Target | Precision | Recall | F1-score | 
+| ---- | ---- | ---- | ---- | 
+| 0 | 0.89 | 1.0 | 0.94 |  
+| 1 | 1.0 | 0.8 | 0.89 |  
+
+These values suggest logistic regression does acceptably well.
 
 First, I investigate the accuracy of this approach assuming we could perfectly predict May rainfall totals using machine learning. This is obviously not achievable, but it is important to investigate given the scatter in the relation between May rainfall totals and total production, as this will set the upper limit on our accuracy. The first constraint we want to impose, given the intrinsic scatter in the relation between May rainfall and total production, is to predict whether a year will be profitable rather than to predict the production in kg. In the figure below I adopt the value of the best fit relation between May rainfall totals and total production for each year and ask whether the true value and the predicted value are above or below the profit threshold.
 
