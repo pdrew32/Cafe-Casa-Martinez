@@ -189,6 +189,7 @@ plt.plot(test, label='truth', linewidth=3)
 plt.ylabel('Rainfall Totals (mm)')
 plt.xlabel('Month')
 plt.legend(fontsize='x-small')
+plt.xticks(np.arange(0, 12), ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'], rotation=45) # np.arange(1,13))
 if save_figures is True:
     plt.savefig(forecast_vs_reality_path)
 plt.show()
