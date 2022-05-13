@@ -90,7 +90,7 @@ The top panel of the following figure shows the forecasted rainfall for 2020 in 
 </p>
 
 # Zoca Schedule
-We saw during the exploratory analysis that the most important thing Café Casa Martinez can do to maximize production is fill all their lots with coffee and keep up with the renewal schedule.  Surprisingly, has a stronger effect on production than rainfall totals. There are four lots that are currently overdue for renewal, but it is not ideal to renew them all immediately in order to keep the production as consistent as possible between years. With this in mind, I tried to divide the overdue lots into bins with close to equal numbers of plants in order to make an optimal zoca schedule for Café Casa Martinez for the next 60 years.
+We saw during the exploratory analysis that the most important thing Café Casa Martinez can do to maximize production is sow all their lots with plants and keep up with the renewal schedule every 6 years.  Surprisingly, these have a stronger effect on production than rainfall totals. Upon inspection of their renewal schedule I found four lots that are currently overdue for renewal. While it would be possible to renew all four lots immediately, it would not be ideal ideal because that would lead to many plants not producing at once. It is better to keep the production as consistent as possible between years which requires an equal number of plants to be renewed every year in the ideal case. With this in mind, I tried to divide the four overdue lots into bins with close to equal numbers of plants in order to make an optimal zoca schedule for Café Casa Martinez for the coming years. I wrote a script posted [here]( https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/zoca_schedule.py) that creates a pandas dataframe listing the years of suggested renewal for each field for the next 60 years. Below is a table showing the lots to renew each year for the next 4 years.
 
 | 2022 |  |  2023 |  | 2024 | | 2025 |  | 
 | --- | --- | --- | --- | ---- |  ---- | ---- |  --- |
@@ -102,4 +102,5 @@ We saw during the exploratory analysis that the most important thing Café Casa 
 |  |
 | Total | 5000 |  | 1731 |  | 3616 |  | 5437 |
 
+We can see that the number of plants renewed each year are not consistent, as would be ideal. The reason for this is that it is better to keep up with the current renewal schedule for fields that were already on schedule. Café Casa Martinez would lose production unnecessarily if they failed to keep up with the renewal schedule that was previously determined, in the case of fields that are not currently overdue for renewal. The current schedule for renewal for the 10 fields that are not late is not perfect, in that the number of plants renewed each year is not very close to uniform, but it is good enough and not worth the loss of production to correct.
 
