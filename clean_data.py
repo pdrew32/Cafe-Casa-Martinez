@@ -57,7 +57,7 @@ year_arr = np.arange(production.year.values[0], production.year.values[-1]+1)
 # add columns for each year, fill with 1 if producing, 0 if not.
 lots = pd.concat([pd.DataFrame(columns=year_arr.astype(str)), lots])
 # add columns for each year to be filled with theoretical 100% production
-lots = pd.concat([pd.DataFrame(columns=np.core.defchararray.add(year_arr.astype(str), '_frac_prod')), lots])
+# lots = pd.concat([pd.DataFrame(columns=np.core.defchararray.add(year_arr.astype(str), '_frac_prod')), lots])
 
 # for all lots in dataframe
 for i in lots.index:
