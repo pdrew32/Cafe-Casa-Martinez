@@ -69,7 +69,7 @@ Logistic Regression Accuracy = 92%
 These values suggest logistic regression does acceptably well. A grid search of optimal hyperparameters reveals the default values are best, C=1, penalty=l2. Now that we have an acceptable model it would be nice to be able to predict the rainfall for the current year in order to predict the production from the beginning of the year, rather than waiting until the end of August.
 
 # Weather Forecasting
-We have daily rainfall totals from November 2006 until January 2022. This time series data can be decomposed into seasonal and trend components which may provide useful insights as well as form the basis for a forecasting model. The first figure below shows the observed rainfall totals for each month, the underlying trend, the seasonal trend, and the residuals of the decomposition. The bottom left figure shows a zoom in on the trend curve, and the right figure shows the seasonal trend repeating for a single year so more detail may be seen.
+We have daily rainfall totals on the farm from November 2006 until January 2022. This time series data can be decomposed into seasonal and trend components which may provide useful insights as well as form the basis for a forecasting model. The first figure below shows the observed rainfall totals for each month, the underlying trend, the seasonal trend, and the residuals of the decomposition. This seasonal decomposition is done with the seasonal_decompose from the statsmodels python package. The bottom left figure shows a zoom in on the trend curve, and the right figure shows the seasonal trend repeating for a single year so more detail may be seen.
 
 <p float="left">
     <img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/seasonal_decomposition_plot.png" width="600">
@@ -84,7 +84,22 @@ The median of the residuals of the decomposition is -4 with a standard deviation
 
 First I split the data into train and test data sets with a split of the first 12 years in training and the last year in testing, as we will want to predict a single, whole year at a time. I will use the ARIMA forecasting model, which works best on data that is stationary with respect to time. That is to say, the statistical properties of the data do not depend on time. To confirm stationarity, I run KPSS and adfuller tests, which confirm that the rainfall data are indeed stationary. Next I calculate the Hurst exponent, which reveals if the data is mean reverting, has properties similar to a random walk, or if there is a trend to the data with respect to time.  I find that the data are mean reverting, meaning that there are deviations away from the mean seasonal trend, but the data generally reverts to the mean. Next I check auto-correlation and partial auto-correlation plots for the data as a function of different lags and find significant auto-correlation that corresponds to the seasonal trend, which is to say that there is a seasonality trend in the data. 
 
+The top panel of the following figure shows the forecasted rainfall for 2020 in orange with true rainfall totals in blue as a function of month. The bottom panel shows the residuals, or reality minus forecast. We see the forecast is not perfect but does fairly well modeling the true rainfall totals. The forecast is quite accurate for May, but is less accurate in August. The forecast over predicts the August rainfall by about 30%. Taking the 
 <p float="left">
     <img src="https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/figures/forecast_vs_reality.png" width="400">
 </p>
+
+# Zoca Schedule
+We saw during the exploratory analysis that the most important thing Café Casa Martinez can do to maximize production is fill all their lots with coffee and keep up with the renewal schedule.  Surprisingly, has a stronger effect on production than rainfall totals. There are four lots that are currently overdue for renewal, but it is not ideal to renew them all immediately in order to keep the production as consistent as possible between years. With this in mind, I tried to divide the overdue lots into bins with close to equal numbers of plants in order to make an optimal zoca schedule for Café Casa Martinez for the next 60 years.
+
+| 2022 |  |  2023 |  | 2024 | | 2025 |  | 
+| --- | --- | --- | --- | ---- |  ---- | ---- |  --- |
+| Lot | # plants | Lot | # plants | Lot | # plants | Lot | # plants |
+| Sancocho 2 | 5000 | Ceiba 4 | 243 |  Ceiba 3|  900 | Ceiba 1 | 925 | 
+|                       |            | Sancocho 1 | 1488 | Anacos 2 | 680 | Cedral | 2025 |
+|                       |            |  | | La Hoya | 1130 | Anacos 1 | 2487 |
+|                       |            |  | | Arrayanes | 906 |  |  |
+|  |
+| Total | 5000 |  | 1731 |  | 3616 |  | 5437 |
+
 
