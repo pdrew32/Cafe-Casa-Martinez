@@ -2,3 +2,8 @@
 data/
 matplotlibrc
 old/
+*readme*.docx
+geckodriver.log
+chromedriver.exe
+scrape_weather.py
+*.pyc
