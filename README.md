@@ -10,13 +10,14 @@ Farms like Finca Tulipan have multiple fields of coffee that were sown and renew
 Café Casa Martinez provided me with daily rainfall records reaching back to October 2006, yearly coffee production totals since 2008, records of the month and day of sowing and renewal, and the number of plants in each of their 14 lots. With this data I worked toward the following key goals:
 
 # Key Goals
-1. Optimize the renewal schedule to minimize inter-year variation in production.
-2. Determine which quantities correlate with yearly production.
-3. Train a machine learning algorithm to predict whether the company should expect to make a profit in any given year.
+1. Determine which quantities correlate with yearly production.
+2. Train a machine learning algorithm to predict whether the company should expect to make a profit in any given year.
+3. Optimize the renewal schedule to minimize inter-year variation in production.
+
 
 # Summary of Results
 1.	Planting new fields and renewing fields on time are the two most important factors Café Casa Martinez can do to maximize production. These factors correlate more strongly with production than rainfall.
-2.	May rainfall totals correlate with production per plant and total production. Rainfall in this month is the only one that correlates with production.
+2.	May rainfall totals correlate with production per plant and total production. Rainfall in this month is the only one that correlates significantly with production.
 3.	I present a weather forecasting model to predict rainfall on the farm. This may be used to predict whether a profit should be expected at the end of the year.
 
 # Exploratory Data Analysis and Machine Learning
