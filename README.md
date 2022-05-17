@@ -70,13 +70,13 @@ Next I ran numerous classification algorithms to determine which provides the be
 
 After determining that logistic regression is the best algorithm in this case, I trained using all data and found the following confusion matrix:
 
-Logistic Regression Accuracy = 92%
+Overall logistic Regression Accuracy = 92%
 | Target | Precision | Recall | F1-score | 
 | ---- | ---- | ---- | ---- | 
-| 0 | 0.89 | 1.0 | 0.94 |  
-| 1 | 1.0 | 0.8 | 0.89 |  
+| 0 (unprofitable) | 0.89 | 1.0 | 0.94 |  
+| 1 (profitable) | 1.0 | 0.8 | 0.89 |  
 
-These values suggest logistic regression does acceptably well. A grid search of optimal hyperparameters reveals the default values are best, C=1, penalty=l2. Now that we have an acceptable model it would be nice to be able to predict the rainfall for the current year in order to predict the production from the beginning of the year, rather than waiting until the end of August.
+These values suggest logistic regression does acceptably well. A grid search of optimal hyperparameters reveals the default values are best, C=1, penalty=l2. Now that we have an acceptable model I want to create a model to forecast rainfall for the current year in order to predict the production from the beginning of the year, rather than waiting until the end of August.
 
 # Weather Forecasting
 We have daily rainfall totals on the farm from November 2006 until January 2022. This time series data can be decomposed into seasonal and trend components which may provide useful insights as well as form the basis for a forecasting model. The first figure below shows the observed rainfall totals for each month, the underlying trend, the seasonal trend, and the residuals of the decomposition. This seasonal decomposition is done with the seasonal_decompose from the statsmodels python package. The bottom left figure shows a zoom in on the trend curve, and the right figure shows the seasonal trend repeating for a single year so more detail may be seen.
