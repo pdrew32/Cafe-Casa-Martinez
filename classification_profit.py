@@ -14,9 +14,13 @@ from sklearn.preprocessing import StandardScaler
 import pickle
 
 
+"""
+run classification algorithms to determine the best one and save the trained model for use in other scripts
+"""
+
+
 save_coefs = True
 best_fit_coef_path = 'data/lr_coefs_best_fit.pkl'
-
 
 # load the data
 tot_plants = pd.read_csv('data/tot_plants.csv', index_col=0)
