@@ -3,8 +3,12 @@ import numpy as np
 from scipy.stats import pearsonr
 
 
-t = pd.read_csv('data/tot_plants.csv', index_col=0)
+"""
+Define some constants we can import repeatedly in other scripts
+"""
 
+
+t = pd.read_csv('data/tot_plants.csv', index_col=0)
 
 class c:
     """define class to hold constants we will repeatedly use in different scripts"""
