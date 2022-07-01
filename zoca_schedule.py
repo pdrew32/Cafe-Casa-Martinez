@@ -5,32 +5,32 @@ import numpy as np
 Determine when to zoca each lot
 """
 
-rain = pd.read_csv('data/rain.csv', index_col=0)
-prod = pd.read_csv('data/production.csv', index_col=0)
-lots = pd.read_csv('data/lots.csv', index_col=0)
-tot_plants = pd.read_csv('data/tot_plants.csv', index_col=0)
+save_frame = True
+save_frame_path = 'data/zoca_year.csv'
 
-# these years are chosen to evenly spread the number of plants in lots that are currently overdue for zoca
+lots = pd.read_csv('data/lots.csv', index_col=0)
+
+# I manually chose these years to evenly spread the number of plants in lots that are currently overdue for zoca
 recommended_zoca_year_list = [2024, 2024, 2023, 2022]
 
-# save a dataframe with years of when to sow
-dF = pd.DataFrame(index=lots.index, columns=np.arange(0, 10))
+year_iterator = np.arange(2018, 2081).astype(int)
+
+zoca_year = pd.DataFrame(data=0, index=year_iterator, columns=lots.lot_number.values)
+
 j=0
 for i in lots.index:
-    # for every lot, if the overdue for zoca, fill with recommended_zoca_year_list going forward.
-    # Else, continue with the previous zoca schedule
+    # if the lot is overdue, assign it one of the manually recommended years to zoca
     if np.isin(i, lots.index[(lots.cut_year+6 < 2023) | (lots.sow_year+7 < 2023)]):
-        dF.loc[i] = np.arange(recommended_zoca_year_list[j], recommended_zoca_year_list[j]+60, 6)
+        zoca_year.loc[np.arange(recommended_zoca_year_list[j], recommended_zoca_year_list[j]+60, 6), lots.loc[i, 'lot_number']] = 1
         j += 1
+    # if the lot is not overdue, fill 1 in for every 6 years after the recent zoca or if recently sown, zoca after 7 years and then every 6 after that
     else:
         if ~np.isnan(lots.loc[i, 'cut_year']):
-            dF.loc[i] = np.arange(lots.loc[i, 'cut_year'], lots.loc[i, 'cut_year']+60, 6)
-        if ~np.isnan(lots.loc[i, 'sow_year']):
-            dF.loc[i] = np.arange(lots.loc[i, 'sow_year']+7, lots.loc[i, 'sow_year']+67, 6)
-dF['lot_name'] = lots.lot_name
-dF['n_plants'] = lots.n_plants
+            zoca_year.loc[np.arange(lots.loc[i, 'cut_year'], max(year_iterator)+1, 6), lots.loc[i, 'lot_number']] = 1
+        elif ~np.isnan(lots.loc[i, 'sow_year']):
+            zoca_year.loc[np.arange(lots.loc[i, 'sow_year']+7, max(year_iterator)+1, 6), lots.loc[i, 'lot_number']] = 1
 
-# print this to check that the correct years were assigned for our custom 4
-# dF.loc[lots.index[(lots.cut_year+6 < 2023) | (lots.sow_year+7 < 2023)]]
+zoca_year.drop(index=[2018, 2019, 2020, 2021], inplace=True)
 
-print(dF.loc[np.isin(dF, 2022), ['lot_name', 'n_plants']])
+if save_frame is True:
+    zoca_year.to_csv(save_frame_path)
