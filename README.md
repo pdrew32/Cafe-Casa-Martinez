@@ -23,6 +23,9 @@
 5. ARIMA weather forecasting
 6. Dashboarding with plotly, dash, and heroku. Dashboard available [here](https://cafe-casa-martinez-app.herokuapp.com/).
 
+## Products 
+I provided Café Casa Martinez with a yearly timeline they can follow for steps they perform to predict and maximize yearly profit. I also provided them with a [dashboard](https://cafe-casa-martinez-app.herokuapp.com/) so they can follow along with that timeline and predict production and profitability.
+
 ## Analysis
 They grow three varieties of coffee, Castillo, Tabi, and Cenicafe 1. These varieties grow in the shade of trees and only fruit once per year. The plants typically flower between February and April and produce fully ripened fruit between October and December, from which the coffee beans are extracted.
 
