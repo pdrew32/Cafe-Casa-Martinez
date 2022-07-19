@@ -1,5 +1,30 @@
-# Café Casa Martinez
-[Café Casa Martinez](https://www.cafecasamartinez.com/) is a small, organic coffee company with a farm called Finca Tulipan in the Santander department of Colombia. They grow three varieties of coffee, Castillo, Tabi, and Cenicafe 1. These varieties grow in the shade of trees and only fruit once per year. The plants typically flower between February and April and produce fully ripened fruit between October and December, from which the coffee beans are extracted.
+# Café Casa Martinez Data Science Consulting Project
+## Summary
+[Café Casa Martinez](https://www.cafecasamartinez.com/) is a small, organic coffee company with a farm called Finca Tulipan in the Santander department of Colombia. 
+
+## Goals
+1. Look for evidence of the effect of global warming on rainfall totals over the last 15 years. 
+    1. Some coffee farms in Colombia are closing because global warming has decreased rainfall making them unprofitable. 
+    2. If there is evidence of decreasing rainfall, try to determine which year the farm is projected to become unprofitable.
+    3. Investigate the possibility to fully irrigate the farm by that date. Investigate during which months rainfall is critical.
+2. Find ways to increase production based on available data.
+
+## Summary of Results
+1. There is no evidence that rainfall totals have changed with time. The data are characterized as mean-reverting with no statistical trend towards increasing or decreasing rainfall.
+2. A statistical analysis demonstrates the most important thing Café Casa Martinez can do to increase production is regular upkeep of their fields. This practice, called renewal or zoca, has a stronger effect on total yearly production than rainfall. 
+3. The only month where rainfall correlates significantly with total yearly production is the month of May. It is critical to water crops only during this month in the event of low rainfall totals. This is critical information because year-round irrigation of crops is prohibitively expensive but some crops may be watered using existing rainwater cisterns for the period of a month.
+
+## Techniques Utilized
+1. Python (pandas, numpy, scikit-learn, matplotlib, plotly)
+2. Pearson correlation and p-value estimation
+2. Machine learning – linear regression
+3. Machine learning – classification 
+4. Time series decomposition
+5. ARIMA weather forecasting
+6. Dashboarding with plotly, dash, and heroku. Dashboard available [here](https://cafe-casa-martinez-app.herokuapp.com/).
+
+## Analysis
+They grow three varieties of coffee, Castillo, Tabi, and Cenicafe 1. These varieties grow in the shade of trees and only fruit once per year. The plants typically flower between February and April and produce fully ripened fruit between October and December, from which the coffee beans are extracted.
 
 Coffee plants do not produce the same quantity of beans every year, even without rainfall variability. The fruit production of any given plant depends on the number of years since that tree was planted. The production curve is as follows. In the year of sowing and the following year, no fruit is produced. In the year after that, the plant will produce fruit at 50% of its maximum. The fourth year sees maximum fruit production and each year after that sees decreasing production. For this reason, in the 6th year after sowing, the farmers perform a process called renewal, or zoca, where the plant is cut near its base. The plant then regrows from the stump and returns to maximum production after two more years. Plants may be renewed up to 5 times. The following figure shows the production fraction as a function of year covering the sowing cycle and three zoca cycles.
 
