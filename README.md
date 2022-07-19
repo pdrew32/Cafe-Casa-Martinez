@@ -14,7 +14,7 @@
 2. A statistical analysis demonstrates the most important thing Café Casa Martinez can do to increase production is regular upkeep of their fields. This practice, called renewal or zoca, has a stronger effect on total yearly production than rainfall. 
 3. The only month where rainfall correlates significantly with total yearly production is the month of May. It is critical to water crops only during this month in the event of low rainfall totals. This is critical information because year-round irrigation of crops is prohibitively expensive but some crops may be watered using existing rainwater cisterns for the period of a month.
 
-## Techniques Utilized
+## Methods
 1. Python (pandas, numpy, scikit-learn, matplotlib, plotly)
 2. Pearson correlation and p-value estimation
 2. Machine learning – linear regression
