@@ -3,11 +3,12 @@
 [Café Casa Martinez](https://www.cafecasamartinez.com/) is a small, organic coffee company with a farm called Finca Tulipan in the Santander department of Colombia.
 
 ## Goals
-1. Look for evidence of the effect of global warming on rainfall totals over the last 15 years. 
-    1. Some coffee farms in Colombia are closing because global warming has decreased rainfall making them unprofitable. 
-    2. If there is evidence of decreasing rainfall, try to determine which year the farm is projected to become unprofitable.
-    3. Investigate the possibility to fully irrigate the farm by that date. Investigate during which months rainfall is critical.
-2. Find ways to increase production based on available data.
+1. Find ways to increase production based on available data.
+2. Predict production, profitability, and rainfall totals on the farm.
+3. Look for evidence of the effect of global warming on rainfall totals over the last 15 years. 
+    1. Some coffee farms in Colombia are closing because global warming has decreased rainfall making them unprofitable. If there is evidence of decreasing rainfall, determine which year the farm is projected to become unprofitable.
+    2. Investigate the possibility to fully irrigate the farm by that date. 
+    3. Investigate during which months rainfall is critical.
 
 ## Summary of Results
 1. There is no evidence that rainfall totals have changed with time. The data are characterized as mean-reverting with no statistical trend towards increasing or decreasing rainfall.
