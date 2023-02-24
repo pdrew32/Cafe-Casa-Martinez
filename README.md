@@ -11,15 +11,14 @@
     3. Investigate during which months rainfall is critical.
 
 ## Summary of Results
-1. There is no evidence that rainfall totals have changed with time. The data are characterized as mean-reverting with no statistical trend towards increasing or decreasing rainfall.
-2. A statistical analysis demonstrates the most important thing Café Casa Martinez can do to increase production is regular upkeep of their fields. This practice, called renewal or zoca, has a stronger effect on total yearly production than rainfall. 
-3. The only month where rainfall correlates significantly with total yearly production is the month of May. It is critical to water crops only during this month in the event of low rainfall totals. This is critical information because year-round irrigation of crops is prohibitively expensive but some crops may be watered using existing rainwater cisterns for the period of a month.
+1. A statistical analysis demonstrates the most important thing Café Casa Martinez can do to increase production is regular upkeep of their fields. This practice, called renewal or zoca, has a stronger effect on total yearly production than rainfall.
+2. The only month where rainfall has a statistically significant positive correlation with total yearly production is the month of May. It is critical to water crops only during this month in the event of low rainfall totals. This is critical because year-round irrigation of crops is prohibitively expensive but crops may be watered using free rainwater collected in their cisterns during the month of May.
+3. There is no evidence that rainfall totals have changed with time. The data are characterized as mean-reverting with no statistical trend towards increasing or decreasing rainfall.
 
 ## Methods
-1. Python (pandas, numpy, scikit-learn, matplotlib, plotly)
-2. Pearson correlation and p-value estimation
-3. Machine learning – linear regression
-4. Machine learning – classification 
+1. Python (Pandas, Scikit-learn, LightGBM, Optuna, Seaborn, Plotly)
+2. Machine learning – Regression and Classification
+3. Pearson correlation and p-value estimation
 5. Time series decomposition
 6. ARIMA weather forecasting
 7. Analysis of variance (ANOVA)
@@ -40,7 +39,7 @@ Farms like Finca Tulipan have multiple fields of coffee that were sown and renew
 Café Casa Martinez provided me with daily rainfall records reaching back to October 2006, yearly coffee production totals since 2008, records of the month and day of sowing and renewal, and the number of plants in each of their 14 lots.
 
 ## Exploratory Data Analysis and Machine Learning
-First, I cleaned the data, formatted them as pandas data frames, and saved them for future use in other scripts. The script that performs these steps can be found [here](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/clean_data.py). Next, I performed exploratory data analysis to determine which features might correlate with target variables of interest, such as total production and production per plant. I calculated Pearson correlation coefficients and P-values between all parameters. The Pearson correlation coefficient is a measure of the linear correlation between features in the dataset. Pearson correlation coefficient values closer to 1 (or -1) are highly correlated (or anti-correlated) and values closer to 0 are uncorrelated. The following table summarizes the strongest correlations between features and target variables of interest:
+First, I cleaned the data, formatted them as pandas dataframes, and saved them for future use in other scripts. The script that performs these steps can be found [here](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/clean_data.ipynb). Next, I performed exploratory data analysis to determine which features might correlate with target variables of interest, such as total production and production per plant. I calculated Pearson correlation coefficients and P-values between all parameters. The Pearson correlation coefficient is a measure of the linear correlation between features in the dataset. Pearson correlation coefficient values closer to 1 (or -1) are highly correlated (or anti-correlated) and values closer to 0 are uncorrelated. The following table summarizes the strongest correlations between features and target variables of interest:
 
 | Parameter 1      | Parameter 2 | Pearson Correlation Coefficient | P-value | Statistically Significant? |
 | ---------------- | ----------- | ------------------------------- | ------ | --- |
