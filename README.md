@@ -3,6 +3,14 @@
 * [Intro](https://github.com/pdrew32/Cafe-Casa-Martinez#intro)
 * [Goals](https://github.com/pdrew32/Cafe-Casa-Martinez#goals)
 * [Summary of Results](https://github.com/pdrew32/Cafe-Casa-Martinez#summary-of-results)
+* [Methods](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/README.md#methods)
+* [Products](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/README.md#products)
+* [Background](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/README.md#background)
+* [Exploratory Data Analysis and Machine Learning](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/README.md#exploratory-data-analysis-and-machine-learning)
+* [Classification as Profitable vs Unprofitable](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/README.md#classification-as-profitable-vs-unprofitable)
+* [Weather Forecasting](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/README.md#weather-forecasting)
+* [Zoca Schedule](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/README.md#zoca-schedule)
+* [Final Product – Timeline](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/README.md#final-product---timeline)
 
 ## Intro
 [Café Casa Martinez](https://www.cafecasamartinez.com/) is a small, organic coffee company with a farm called Finca Tulipan in the Santander department of Colombia.
