@@ -5,7 +5,7 @@ import numpy as np
 Determine when to zoca each lot
 """
 
-save_frame = True
+save_frame = False
 save_frame_path = 'data/zoca_year.csv'
 
 lots = pd.read_csv('data/lots.csv', index_col=0)
