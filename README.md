@@ -1,5 +1,10 @@
 # Café Casa Martinez Data Science Consulting Project
-## Summary
+## Table of Contents
+[Intro](https://github.com/pdrew32/Cafe-Casa-Martinez#intro)
+[Goals](https://github.com/pdrew32/Cafe-Casa-Martinez#goals)
+[Summary of Results](https://github.com/pdrew32/Cafe-Casa-Martinez#summary-of-results)
+
+## Intro
 [Café Casa Martinez](https://www.cafecasamartinez.com/) is a small, organic coffee company with a farm called Finca Tulipan in the Santander department of Colombia.
 
 ## Goals
