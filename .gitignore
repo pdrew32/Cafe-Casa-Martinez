@@ -9,6 +9,6 @@ scrape_weather.py
 photos/
 .ipynb_checkpoints/
 __pycache__
-~WRL3683.tmp
+*.tmp
 *.key
 *.pdf
