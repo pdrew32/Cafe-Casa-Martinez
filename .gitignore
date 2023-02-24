@@ -6,3 +6,7 @@ geckodriver.log
 chromedriver.exe
 scrape_weather.py
 *.pyc
+photos/
+figures/
+.ipynb_checkpoints/
+__pycache__
