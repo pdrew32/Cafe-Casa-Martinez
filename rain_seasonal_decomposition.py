@@ -31,7 +31,7 @@ def seasonal_strength(tsd):
 
 
 save_figures = False
-save_forecast = True
+save_forecast = False
 forecast_path = 'data/forecast_rainfall.npy'
 seasonal_decomp_plot_path = 'figures/seasonal_decomposition_plot.png'
 seasonal_trend_plot_path = 'figures/seasonal_trend_plot.png'
@@ -82,13 +82,23 @@ plt.show()
 
 # plot seasonal trend
 plt.plot(month_n[:12], tsd.seasonal[:12], linewidth=2.0, color='k')
-plt.xlim(1, 12)
+plt.xlim(0.5, 12.5)
 plt.ylabel('Seasonal Trend (arbitrary units)')
 plt.xlabel('Month')
+plt.xticks(np.arange(1, 13), ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'], rotation=45, fontsize=14)
 if save_figures is True:
     plt.savefig(seasonal_seasonal_plot_path)
 plt.show()
 
+years = np.arange(0, 16) * 12
+fig, ax = plt.subplots()
+ax.set_aspect(0.1)
+plt.plot(tsd.observed)
+for i in range(len(years)):
+    plt.axvline(years[i], zorder=-1, color='k')
+plt.xlabel('Month')
+plt.ylabel('Rainfall Totals (mm)')
+plt.show()
 
 print(f"Trend Strength: {np.round(trend_strength(tsd), 4)}")
 print(f"Seasonal Strength: {np.round(seasonal_strength(tsd), 4)}")
