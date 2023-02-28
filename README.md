@@ -24,7 +24,7 @@
 ## Summary of Results
 1. A statistical analysis of the correlations between production and all other data demonstrates that the most important thing Café Casa Martinez can do to increase production is regular upkeep of their fields. This practice, called renewal or zoca, has a stronger effect on total yearly production than rainfall. I suggest an optimal renewal schedule for the farm that maximizes profits without too much short term disruption to production.
 2. I find that the only month where rainfall has a statistically significant positive correlation with total yearly production is the month of May. It is critical to water crops during May in the event of low rainfall totals. Year-round irrigation of crops is prohibitively expensive but crops may be watered using free rainwater collected in their cisterns during the month of May for as long as the collected water lasts.
-3. I use linear regression to predict production from monthly rainfall totals. I use logistic regression and LightGBM to predict whether a year will be profitable or not, and I use ARIMA and LightGBM to forecast daily rainfall totals.
+3. I use linear regression, LightGBM, and elastic net to predict production from monthly rainfall totals. I use logistic regression and LightGBM to predict whether a year will be profitable or not, and I use ARIMA and LightGBM to forecast daily rainfall totals.
 4. There is no evidence that rainfall totals have changed with time. The data are characterized as mean-reverting with no statistical trend towards increasing or decreasing rainfall.
 
 ## Methods
