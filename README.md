@@ -158,7 +158,7 @@ We found during the exploratory analysis that sowing all lots with coffee plants
 
 We can see that the number of plants renewed each year are not consistent, as they would be in the ideal case. The reason for this is that it is better to keep up with the current renewal schedule for fields that were already on schedule. Café Casa Martinez would lose production, unnecessarily, if they failed to keep up with the renewal schedule for lots that are not currently overdue. The current schedule for renewal for the 10 fields that are not late is not perfect, meaning that the number of plants renewed each year is not very close to uniform, but it is good enough and not worth the loss of production to correct.
 
-## Final Product - Timeline
+## Final Product - Timeline (Old, to be updated)
 Every year, I recommend that Café Casa Martinez take the following steps:
 1. In January, use the ARIMA model to predict monthly rainfall for the entire year. Next, predict total production with the May rainfall estimate and predict whether the year will be profitable with May and August rainfall estimates. This is their first, coarsest estimate of production/profitability for the year.
 2. During the month of May, if rainfall is abnormally low irrigate at least some of the crops with water from the rainfall cisterns on the farm. This will mitigate the negative effect on production and profitability.
