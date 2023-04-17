@@ -2,14 +2,15 @@
 ## Table of Contents
 * [Goals](https://github.com/pdrew32/Cafe-Casa-Martinez#goals)
 * [Summary of Results](https://github.com/pdrew32/Cafe-Casa-Martinez#summary-of-results)
-* [Methods](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/README.md#methods)
-* [Products](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/README.md#products)
-* [Background](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/README.md#background)
-* [Exploratory Data Analysis and Machine Learning](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/README.md#exploratory-data-analysis-and-machine-learning)
-* [Classification as Profitable vs Unprofitable](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/README.md#classification-as-profitable-vs-unprofitable)
-* [Weather Forecasting](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/README.md#weather-forecasting)
-* [Zoca Schedule](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/README.md#zoca-schedule)
-* [Final Product – Timeline](https://github.com/pdrew32/Cafe-Casa-Martinez/blob/master/README.md#final-product---timeline)
+* [Methods](https://github.com/pdrew32/Cafe-Casa-Martinez#methods)
+* [Products](https://github.com/pdrew32/Cafe-Casa-Martinez#products)
+* [Background](https://github.com/pdrew32/Cafe-Casa-Martinez#coffee-background)
+* [Exploratory Data Analysis and Machine Learning](https://github.com/pdrew32/Cafe-Casa-Martinez#exploratory-data-analysis-and-machine-learning)
+* [Predicting Production](https://github.com/pdrew32/Cafe-Casa-Martinez#predicting-production)
+* [Classification as Profitable vs Unprofitable](https://github.com/pdrew32/Cafe-Casa-Martinez#classification-as-profitable-vs-unprofitable)
+* [Weather Forecasting](https://github.com/pdrew32/Cafe-Casa-Martinez#weather-forecasting)
+* [Zoca Schedule](https://github.com/pdrew32/Cafe-Casa-Martinez#zoca-schedule)
+* [Final Product – Timeline](https://github.com/pdrew32/Cafe-Casa-Martinez#final-product---timeline)
 
 ## Goals
 [Café Casa Martinez](https://www.cafecasamartinez.com/) is a small, organic coffee company with a farm called Finca Tulipan in the Santander department of Colombia. The goals of this consulting project are to:
@@ -158,7 +159,7 @@ We found during the exploratory analysis that sowing all lots with coffee plants
 
 We can see that the number of plants renewed each year are not consistent, as they would be in the ideal case. The reason for this is that it is better to keep up with the current renewal schedule for fields that were already on schedule. Café Casa Martinez would lose production, unnecessarily, if they failed to keep up with the renewal schedule for lots that are not currently overdue. The current schedule for renewal for the 10 fields that are not late is not perfect, meaning that the number of plants renewed each year is not very close to uniform, but it is good enough and not worth the loss of production to correct.
 
-## Final Product - Timeline (Old, to be updated)
+## Final Product – Timeline
 Every year, I recommend that Café Casa Martinez take the following steps:
 1. In January, use the ARIMA model to predict monthly rainfall for the entire year. Next, predict total production with the May rainfall estimate and predict whether the year will be profitable with May and August rainfall estimates. This is their first, coarsest estimate of production/profitability for the year.
 2. During the month of May, if rainfall is abnormally low irrigate at least some of the crops with water from the rainfall cisterns on the farm. This will mitigate the negative effect on production and profitability.
